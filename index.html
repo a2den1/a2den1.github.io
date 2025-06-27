@@ -23,20 +23,9 @@
       height: 64px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.03);
     }
-    .logo {
-      display: flex;
-      align-items: center;
-    }
     .logo img {
       height: 40px;
       width: 40px;
-      margin-right: 16px;
-    }
-    .site-title {
-      font-size: 1.6rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-      color: #2d3748;
     }
     main {
       flex: 1;
@@ -45,6 +34,8 @@
       justify-content: center;
       align-items: center;
       min-height: 0;
+      opacity: 0;
+      transition: opacity 0.5s;
     }
     .main-text {
       font-size: 2rem;
@@ -57,6 +48,41 @@
       color: #555;
       letter-spacing: 1px;
     }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 40px;
+      width: 90vw;
+      max-width: 1100px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+      padding: 32px 24px;
+      text-align: center;
+      font-size: 1.1rem;
+      color: #2d3748;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .card-title {
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .card-desc {
+      color: #718096;
+      font-size: 0.97rem;
+    }
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
     @media (max-width: 600px) {
       header {
         padding: 0 12px;
@@ -65,10 +91,6 @@
       .logo img {
         height: 32px;
         width: 32px;
-        margin-right: 10px;
-      }
-      .site-title {
-        font-size: 1.1rem;
       }
       .main-text {
         font-size: 1.3rem;
@@ -76,6 +98,35 @@
       .sub-text {
         font-size: 1rem;
       }
+      .grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .card {
+        padding: 18px 8px;
+      }
+    }
+    .loader-bg {
+      position: fixed;
+      z-index: 9999;
+      inset: 0;
+      background: rgba(255,255,255,0.92);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.5s;
+    }
+    .loader {
+      width: 70px;
+      height: 70px;
+      border: 8px solid #e5e7eb;
+      border-top: 8px solid #3182ce;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg);}
+      100% { transform: rotate(360deg);}
     }
   </style>
 </head>
@@ -83,12 +134,75 @@
   <header>
     <div class="logo">
       <img src="louhostlogo.png" alt="Loun Host Logo">
-      <span class="site-title">Loun Host</span>
     </div>
   </header>
-  <main>
+  <div class="loader-bg" id="loader-bg">
+    <div class="loader"></div>
+  </div>
+  <main id="main-content">
     <div class="main-text">개발중입니다</div>
     <div class="sub-text">기다리셈 ㅅㄱ</div>
+    <div class="grid">
+      <div class="card">
+        <div class="card-title">소개</div>
+        <div class="card-desc">Loun Host의 주요 특징과 장점을 확인하세요.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">서비스</div>
+        <div class="card-desc">안정적인 웹호스팅과 다양한 부가서비스 제공.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">포트폴리오</div>
+        <div class="card-desc">다양한 프로젝트 사례와 성공 스토리.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">문의</div>
+        <div class="card-desc">빠른 상담과 친절한 지원을 약속드립니다.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">공지사항</div>
+        <div class="card-desc">최신 소식과 업데이트를 확인하세요.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">이벤트</div>
+        <div class="card-desc">진행 중인 다양한 이벤트와 혜택.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">블로그</div>
+        <div class="card-desc">유익한 정보와 팁을 블로그에서 만나보세요.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">채용</div>
+        <div class="card-desc">함께 성장할 인재를 찾습니다.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">파트너십</div>
+        <div class="card-desc">비즈니스 협력 문의 환영합니다.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">고객센터</div>
+        <div class="card-desc">24시간 고객 지원 서비스 제공.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">FAQ</div>
+        <div class="card-desc">자주 묻는 질문을 확인해보세요.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">자료실</div>
+        <div class="card-desc">각종 자료와 문서를 다운로드하세요.</div>
+      </div>
+    </div>
   </main>
+  <script>
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        document.getElementById('loader-bg').style.opacity = '0';
+        document.getElementById('main-content').style.opacity = '1';
+        setTimeout(function() {
+          document.getElementById('loader-bg').style.display = 'none';
+        }, 500);
+      }, 1200);
+    });
+  </script>
 </body>
 </html>
