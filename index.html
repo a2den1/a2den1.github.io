@@ -5,13 +5,12 @@
   <title>Team Loun</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&display=swap');
     :root {
       --primary: #3182f6;
+      --bg: #fff;
       --text-main: #222;
       --text-sub: #4a5568;
-      --bg: #fff;
-      --border: #e5e7eb;
     }
     html, body {
       height: 100%;
@@ -28,7 +27,7 @@
     }
     header {
       background: var(--bg);
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid #e5e7eb;
       height: 64px;
       display: flex;
       align-items: center;
@@ -36,101 +35,54 @@
       z-index: 10;
     }
     .logo img {
-      height: 32px;
-      width: auto;
-      margin-right: 8px;
-      vertical-align: middle;
-    }
-    .brand {
-      font-weight: 700;
-      font-size: 1.18rem;
-      color: var(--primary);
-      letter-spacing: 0.5px;
-      vertical-align: middle;
-    }
-    .brand-sub {
-      color: #222;
-      font-weight: 400;
-      font-size: 1.18rem;
-      margin-left: 2px;
-      letter-spacing: 0.5px;
-      vertical-align: middle;
-    }
-    nav {
-      margin-left: auto;
-      display: flex;
-      align-items: center;
-      gap: 22px;
-    }
-    nav a {
-      color: #222;
-      text-decoration: none;
-      font-size: 1rem;
-      margin-right: 2px;
-      transition: color 0.2s;
-    }
-    nav a:last-child {
-      margin-right: 0;
-    }
-    .nav-btn {
-      background: var(--primary);
-      color: #fff;
-      border: none;
-      border-radius: 22px;
-      padding: 6px 18px;
-      font-size: 1rem;
-      font-weight: 500;
-      margin-left: 8px;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .nav-btn:hover {
-      background: #2563eb;
+      height: 40px;
+      width: 40px;
+      display: block;
     }
     main {
       flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
-      padding-top: 60px;
-      padding-bottom: 60px;
+      justify-content: center;
+      min-height: 0;
+      opacity: 0;
+      transition: opacity 0.5s;
     }
     .main-title {
-      font-size: 2.3rem;
+      font-size: 3.2rem;
       font-weight: 700;
-      color: #222;
+      color: var(--primary);
       text-align: center;
-      line-height: 1.32;
-      margin-bottom: 18px;
-      letter-spacing: -0.5px;
+      margin-bottom: 32px;
+      letter-spacing: -1px;
       margin-top: 0;
+      line-height: 1.18;
     }
     .main-desc {
-      font-size: 1.08rem;
+      font-size: 1.7rem;
       color: var(--text-sub);
       text-align: center;
-      margin-bottom: 38px;
+      margin-bottom: 0;
       line-height: 1.7;
       letter-spacing: 0.1px;
+      font-weight: 400;
     }
-    .main-img {
-      width: 340px;
-      max-width: 90vw;
-      display: block;
-      margin: 0 auto;
-      margin-top: 18px;
-    }
-    @media (max-width: 900px) {
-      main {
-        padding-top: 30px;
-        padding-bottom: 30px;
+    @media (max-width: 600px) {
+      header {
+        padding: 0 12px;
+        height: 56px;
       }
-      .main-title { font-size: 1.5rem; }
-      .main-desc { font-size: 1rem; }
-      .main-img { width: 240px; }
-      header { height: 56px; padding: 0 12px; }
-      .brand, .brand-sub { font-size: 1rem; }
+      .logo img {
+        height: 32px;
+        width: 32px;
+      }
+      .main-title {
+        font-size: 2rem;
+      }
+      .main-desc {
+        font-size: 1.1rem;
+      }
     }
     .loader-bg {
       position: fixed;
@@ -169,14 +121,6 @@
     <span class="logo">
       <img src="louhostlogo.png" alt="Team Loun Logo">
     </span>
-    <span class="brand">team</span>
-    <span class="brand-sub">loun</span>
-    <nav>
-      <a href="#">입점 안내</a>
-      <a href="#">블로그</a>
-      <a href="#">자주 묻는 질문</a>
-      <button class="nav-btn">입점하기</button>
-    </nav>
   </header>
   <div class="loader-bg" id="loader-bg">
     <div class="loader"></div>
@@ -191,10 +135,8 @@
       압도적인 트래픽과 차별화된 쇼핑 경험으로<br>
       추가 매출의 기회를 만나보세요.
     </div>
-    <img src="bg.png" alt="스마트폰 일러스트" class="main-img">
   </main>
   <script>
-
     (function() {
       let devtoolsOpen = false;
       const threshold = 160;
@@ -204,7 +146,6 @@
         if (widthThreshold || heightThreshold) {
           devtoolsOpen = true;
         }
-
         if (
           window.console && (
             window.console.firebug ||
@@ -215,12 +156,10 @@
         }
         if (devtoolsOpen) {
           window.close();
-
           document.body.innerHTML = "";
         }
       }
       setInterval(detectDevTools, 400);
-
       window.addEventListener('keydown', function(e) {
         if (
           (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) ||
