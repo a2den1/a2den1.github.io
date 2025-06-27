@@ -8,13 +8,10 @@
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
     :root {
       --primary: #3182f6;
-      --bg: #f9fafb;
-      --header-bg: #fff;
-      --border: #e5e7eb;
       --text-main: #222;
       --text-sub: #4a5568;
-      --radius: 18px;
-      --shadow: 0 2px 16px rgba(49,130,246,0.04), 0 1.5px 4px rgba(0,0,0,0.03);
+      --bg: #fff;
+      --border: #e5e7eb;
     }
     html, body {
       height: 100%;
@@ -30,98 +27,110 @@
       flex-direction: column;
     }
     header {
-      background: var(--header-bg);
+      background: var(--bg);
       border-bottom: 1px solid var(--border);
       height: 64px;
       display: flex;
       align-items: center;
       padding: 0 32px;
-      box-shadow: var(--shadow);
       z-index: 10;
     }
     .logo img {
-      height: 40px;
-      width: 40px;
+      height: 32px;
+      width: auto;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+    .brand {
+      font-weight: 700;
+      font-size: 1.18rem;
+      color: var(--primary);
+      letter-spacing: 0.5px;
+      vertical-align: middle;
+    }
+    .brand-sub {
+      color: #222;
+      font-weight: 400;
+      font-size: 1.18rem;
+      margin-left: 2px;
+      letter-spacing: 0.5px;
+      vertical-align: middle;
+    }
+    nav {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+    nav a {
+      color: #222;
+      text-decoration: none;
+      font-size: 1rem;
+      margin-right: 2px;
+      transition: color 0.2s;
+    }
+    nav a:last-child {
+      margin-right: 0;
+    }
+    .nav-btn {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 22px;
+      padding: 6px 18px;
+      font-size: 1rem;
+      font-weight: 500;
+      margin-left: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .nav-btn:hover {
+      background: #2563eb;
     }
     main {
       flex: 1;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
-      min-height: 0;
-      opacity: 0;
-      transition: opacity 0.5s;
-    }
-    .fade-in {
-      opacity: 0;
-      transform: translateY(24px);
-      animation: fadeInUp 1s cubic-bezier(.4,0,.2,1) forwards;
-    }
-    .fade-in.delay-1 {
-      animation-delay: 0.6s;
-    }
-    .fade-in.delay-2 {
-      animation-delay: 1.2s;
-    }
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      justify-content: flex-start;
+      padding-top: 60px;
+      padding-bottom: 60px;
     }
     .main-title {
-      font-size: 2.4rem;
+      font-size: 2.3rem;
       font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 18px;
-      letter-spacing: 1.5px;
+      color: #222;
       text-align: center;
-      line-height: 1.2;
+      line-height: 1.32;
+      margin-bottom: 18px;
+      letter-spacing: -0.5px;
+      margin-top: 0;
     }
     .main-desc {
-      font-size: 1.18rem;
+      font-size: 1.08rem;
       color: var(--text-sub);
       text-align: center;
-      letter-spacing: 0.5px;
-      background: #fff;
-      border-radius: var(--radius);
-      padding: 18px 30px;
-      margin-top: 10px;
-      box-shadow: 0 2px 12px rgba(49,130,246,0.06);
-      display: inline-block;
+      margin-bottom: 38px;
+      line-height: 1.7;
+      letter-spacing: 0.1px;
     }
-    .circle-accent {
-      display: inline-block;
-      width: 12px;
-      height: 12px;
-      background: var(--primary);
-      border-radius: 50%;
-      margin-right: 9px;
-      vertical-align: middle;
-      animation: popIn 0.7s cubic-bezier(.4,0,.2,1);
+    .main-img {
+      width: 340px;
+      max-width: 90vw;
+      display: block;
+      margin: 0 auto;
+      margin-top: 18px;
     }
-    @keyframes popIn {
-      0% { transform: scale(0.4); opacity: 0;}
-      80% { transform: scale(1.15);}
-      100% { transform: scale(1); opacity: 1;}
-    }
-    @media (max-width: 600px) {
-      header {
-        padding: 0 12px;
-        height: 56px;
+    @media (max-width: 900px) {
+      main {
+        padding-top: 30px;
+        padding-bottom: 30px;
       }
-      .logo img {
-        height: 32px;
-        width: 32px;
-      }
-      .main-title {
-        font-size: 1.3rem;
-      }
-      .main-desc {
-        font-size: 1rem;
-        padding: 13px 10px;
-      }
+      .main-title { font-size: 1.5rem; }
+      .main-desc { font-size: 1rem; }
+      .main-img { width: 240px; }
+      header { height: 56px; padding: 0 12px; }
+      .brand, .brand-sub { font-size: 1rem; }
     }
     .loader-bg {
       position: fixed;
@@ -157,9 +166,17 @@
 </head>
 <body>
   <header>
-    <div class="logo">
+    <span class="logo">
       <img src="louhostlogo.png" alt="Team Loun Logo">
-    </div>
+    </span>
+    <span class="brand">team</span>
+    <span class="brand-sub">loun</span>
+    <nav>
+      <a href="#">입점 안내</a>
+      <a href="#">블로그</a>
+      <a href="#">자주 묻는 질문</a>
+      <button class="nav-btn">입점하기</button>
+    </nav>
   </header>
   <div class="loader-bg" id="loader-bg">
     <div class="loader"></div>
@@ -168,13 +185,13 @@
       오래걸리시면, 새로고침 하거나 캐시를 지워주세요.
     </div>
   </div>
-  <main id="main-content">
-    <div class="main-title fade-in delay-1">
-      <span class="circle-accent"></span>Team Loun
+  <main id="main-content" style="opacity:0;">
+    <h1 class="main-title">확실한 매출을 위한<br>새로운 판매 채널</h1>
+    <div class="main-desc">
+      압도적인 트래픽과 차별화된 쇼핑 경험으로<br>
+      추가 매출의 기회를 만나보세요.
     </div>
-    <div class="main-desc fade-in delay-2">
-      이 단어는 검증되었다는 소리입니다.
-    </div>
+    <img src="bg.png" alt="스마트폰 일러스트" class="main-img">
   </main>
   <script>
     window.addEventListener('load', function() {
