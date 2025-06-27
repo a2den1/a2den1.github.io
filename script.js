@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const navToggle = document.querySelector('.nav-toggle');
     const mainNav = document.querySelector('.main-nav');
     const navLinks = document.querySelectorAll('.main-nav ul li a');
+    const loadingIndicator = document.getElementById('loading-indicator');
 
     if (navToggle && mainNav) {
         navToggle.addEventListener('click', () => {
@@ -29,5 +30,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 behavior: 'smooth'
             });
         });
+    });
+
+    window.addEventListener('load', () => {
+        if (loadingIndicator) {
+            loadingIndicator.classList.add('hidden');
+        }
     });
 });
