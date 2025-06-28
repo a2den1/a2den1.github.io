@@ -1,245 +1,256 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIDEN</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            height: 100vh;
-            overflow: hidden;
-            background: linear-gradient(135deg, #ff6b6b 0%, #ffa500 50%, #ff8c94 100%);
-            position: relative;
-            transition: background 0.3s ease;
-        }
-        .blur-background {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.2) 0%, transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 60% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-            backdrop-filter: blur(100px);
-            transition: transform 0.3s ease-out;
-            z-index: 1;
-        }
-        .main-container {
-            position: relative; z-index: 2; height: 100vh;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            padding: 2rem;
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-        .main-container.hidden {
-            opacity: 0;
-            transform: translateY(-50px);
-        }
-        .detail-container {
-            position: absolute; top: 0; left: 0; z-index: 2;
-            width: 100%; height: 100vh;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            padding: 2rem;
-            opacity: 0; transform: translateY(50px); transition: opacity 0.5s ease, transform 0.5s ease;
-            pointer-events: none;
-        }
-        .detail-container.visible {
-            opacity: 1; transform: translateY(0); pointer-events: all;
-        }
-        .logo {
-            width: 200px; height: 200px; margin-bottom: 3rem;
-            transition: transform 0.3s ease; object-fit: cover;
-        }
-        .logo:hover {
-            transform: scale(1.05) rotateY(5deg);
-        }
-        .buttons-container {
-            display: flex; gap: 1.5rem; align-items: center;
-        }
-        .button {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(30px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 20px;
-            padding: 1.2rem 2rem;
-            color: white;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            font-size: 1rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-        .button::after {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s ease;
-        }
-        .button:hover::after { left: 100%; }
-        .button:hover {
-            background: rgba(255, 255, 255, 0.15);
-            transform: translateY(-2px);
-            box-shadow: 
-                0 15px 45px rgba(0, 0, 0, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-            border-color: rgba(255, 255, 255, 0.25);
-        }
-        .button:active { transform: translateY(0); }
-        .discord-button {
-            background: rgba(255, 140, 0, 0.1);
-            border-color: rgba(255, 140, 0, 0.2);
-            box-shadow: 
-                0 8px 32px rgba(255, 140, 0, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-        }
-        .discord-button::after {
-            background: linear-gradient(90deg, transparent, rgba(255, 140, 0, 0.4), transparent);
-        }
-        .discord-button:hover {
-            background: rgba(255, 140, 0, 0.2);
-            box-shadow: 
-                0 15px 45px rgba(255, 140, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-            border-color: rgba(255, 140, 0, 0.3);
-        }
-        .material-icons { font-size: 24px; }
-        .back-button {
-            position: absolute; top: 2rem; left: 2rem;
-            background: rgba(255, 255, 255, 0.1); z-index: 10;
-        }
-        .detail-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-        .detail-title {
-            color: white; font-size: 2rem;
-            font-weight: 700; margin-bottom: 0.5rem;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        }
-        .content-grid {
-            display: grid; grid-template-columns: 1fr 1fr 1fr;
-            gap: 2rem; width: 100%; max-width: 1000px; align-items: start;
-        }
-        .section {
-            display: flex; flex-direction: column; align-items: center;
-        }
-        .section-title {
-            color: white; font-size: 1.3rem;
-            font-weight: 600; margin-bottom: 1rem; text-align: center;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        }
-        .cards-column {
-            display: flex; flex-direction: column; gap: 1rem; width: 100%;
-        }
-        .language-cards {
-            position: relative; height: 280px; width: 100%; padding: 40px;
-        }
-        .language-cards .card {
-            position: absolute; top: 0; left: 0; width: 100%;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer; pointer-events: auto;
-        }
-        .language-cards .card:nth-child(1) { transform: translateY(0px) rotate(-3deg); z-index: 3; }
-        .language-cards .card:nth-child(2) { transform: translateY(20px) rotate(2deg); z-index: 2; }
-        .language-cards .card:nth-child(3) { transform: translateY(40px) rotate(-1deg); z-index: 1; }
-        .language-cards .card.active {
-            transform: translateY(-20px) translateX(0px) rotate(0deg) scale(1.1) !important;
-            z-index: 20 !important;
-            box-shadow: 
-                0 25px 70px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.4),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.1) !important;
-        }
-        .card {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(30px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 15px;
-            padding: 1.5rem;
-            color: white;
-            transition: all 0.3s ease;
-            box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-            position: relative;
-            overflow: hidden;
-            text-align: center;
-        }
-        .card::after {
-            content: '';
-            position: absolute; top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: left 0.5s ease;
-        }
-        .card:hover::after { left: 100%; }
-        .card:hover {
-            background: rgba(255, 255, 255, 0.12);
-            transform: translateY(-5px);
-            box-shadow: 
-                0 20px 60px rgba(0, 0, 0, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-            border-color: rgba(255, 255, 255, 0.25);
-        }
-        .card-header { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem; }
-        .card-icon { font-size: 2.5rem; opacity: 0.9; }
-        .card-title { font-size: 1.1rem; font-weight: 600; }
-        .card-content { font-size: 0.9rem; line-height: 1.5; opacity: 0.8; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIDEN</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      height: 100vh;
+      overflow: hidden;
+      background: linear-gradient(135deg, #ff6b6b 0%, #ffa500 50%, #ff8c94 100%);
+      position: relative;
+      transition: background 0.3s ease;
+    }
+    .blur-background {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.2) 0%, transparent 40%),
+                  radial-gradient(circle at 80% 70%, rgba(255,255,255,0.15) 0%, transparent 40%),
+                  radial-gradient(circle at 60% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+      backdrop-filter: blur(100px);
+      z-index: 1;
+    }
+    .main-container, .detail-container {
+      position: relative;
+      z-index: 2;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .main-container.hidden { opacity: 0; transform: translateY(-50px); }
+    .detail-container {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100vh;
+      opacity: 0; transform: translateY(50px);
+      pointer-events: none;
+    }
+    .detail-container.visible {
+      opacity: 1; transform: translateY(0); pointer-events: all;
+    }
+    .logo {
+      width: 200px; height: 200px; margin-bottom: 3rem;
+      object-fit: cover; transition: transform 0.3s ease;
+    }
+    .logo:hover { transform: scale(1.05) rotateY(5deg); }
+    .buttons-container {
+      display: flex; gap: 1.5rem; align-items: center;
+    }
+    .button {
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(30px);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 20px;
+      padding: 1.2rem 2rem;
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .button::after {
+      content: ''; position: absolute; top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s ease;
+    }
+    .button:hover::after { left: 100%; }
+    .button:hover {
+      background: rgba(255,255,255,0.15);
+      transform: translateY(-2px);
+      box-shadow: 0 15px 45px rgba(0,0,0,0.2);
+      border-color: rgba(255,255,255,0.25);
+    }
+    .button:active { transform: translateY(0); }
+    .discord-button {
+      background: rgba(255,140,0,0.1);
+      border-color: rgba(255,140,0,0.2);
+      box-shadow: 0 8px 32px rgba(255,140,0,0.2);
+    }
+    .discord-button::after {
+      background: linear-gradient(90deg, transparent, rgba(255,140,0,0.4), transparent);
+    }
+    .discord-button:hover {
+      background: rgba(255,140,0,0.2);
+      border-color: rgba(255,140,0,0.3);
+    }
+    .material-icons { font-size: 24px; }
+    .back-button {
+      position: absolute; top: 2rem; left: 2rem;
+      background: rgba(255,255,255,0.1); z-index: 10;
+    }
+    .detail-title {
+      color: white;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2rem;
+      max-width: 1000px;
+      width: 100%;
+      align-items: start;
+    }
+    .section-title {
+      color: white;
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .card {
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(30px);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 15px;
+      padding: 1.5rem;
+      color: white;
+      text-align: center;
+    }
+    .card-icon { font-size: 2.5rem; opacity: 0.9; }
+    .card-title { font-size: 1.1rem; font-weight: 600; margin-top: 0.5rem; }
+    .card-content { font-size: 0.9rem; opacity: 0.8; margin-top: 0.5rem; }
+    .cards-column { display: flex; flex-direction: column; gap: 1rem; width: 100%; }
 
-        @media (max-width: 768px) {
-            .logo { width: 150px; height: 150px; margin-bottom: 2rem; }
-            .buttons-container { flex-direction: column; gap: 1rem; width: 100%; max-width: 300px; }
-            .button { width: 100%; justify-content: center; }
-            .content-grid { grid-template-columns: 1fr; gap: 3rem; max-width: 90%; }
-        }
-    </style>
+    @media (max-width: 768px) {
+      .content-grid { grid-template-columns: 1fr; }
+      .buttons-container { flex-direction: column; width: 100%; max-width: 300px; }
+      .button { width: 100%; justify-content: center; }
+    }
+  </style>
 </head>
 <body>
-    <div class="blur-background"></div>
-    <div class="main-container" id="mainContainer">
-        <img src="logo.png" alt="AIDEN" class="logo">
-        <div class="buttons-container">
-            <button class="button" id="moreBtn"><span class="material-icons">expand_more</span>더보기</button>
-            <a href="#" class="button discord-button"><span class="material-icons">group</span>_a2den</a>
-        </div>
-    </div>
-    <div class="detail-container" id="detailContainer">
-        <button class="button back-button" id="backBtn"><span class="material-icons">arrow_back</span>이전</button>
-        <div class="detail-header"><h1 class="detail-title">안녕하세요. Aiden입니다.</h1></div>
-    </div>
+  <div class="blur-background"></div>
 
-    <script>
-        document.addEventListener('contextmenu', e => e.preventDefault());
-        document.body.style.overflow = 'hidden';
-        window.addEventListener('scroll', () => window.scrollTo(0, 0));
-        function showMobileWarning() {
-            if (window.innerWidth <= 768) {
-                const w = document.createElement('div');
-                w.style.cssText = "position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.9);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;padding:2rem";
-                w.innerHTML = `<span class="material-icons" style="font-size:60px;color:#f44336;margin-bottom:1rem;">warning</span><h2 style="font-size:1.5rem;margin-bottom:1rem;">이 페이지는 모바일을 지원하지 않습니다.</h2><button id="ignoreMobileWarning" style="padding:0.8rem 1.5rem;font-size:1rem;background:#2196f3;color:white;border:none;border-radius:8px;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.2);">그냥 보기</button>`;
-                document.body.appendChild(w);
-                document.getElementById('ignoreMobileWarning').addEventListener('click', () => w.remove());
-            }
-        }
-        window.addEventListener('load', showMobileWarning);
-    </script>
+  <div class="main-container" id="mainContainer">
+    <img src="logo.png" alt="AIDEN" class="logo">
+    <div class="buttons-container">
+      <button class="button" id="moreBtn">
+        <span class="material-icons">expand_more</span>
+        더보기
+      </button>
+      <a href="#" class="button discord-button">
+        <span class="material-icons">group</span>
+        _a2den
+      </a>
+    </div>
+  </div>
+
+  <div class="detail-container" id="detailContainer">
+    <button class="button back-button" id="backBtn">
+      <span class="material-icons">arrow_back</span>
+      이전
+    </button>
+    <div class="detail-title">안녕하세요. Aiden입니다.</div>
+    <div class="content-grid">
+      <div class="section">
+        <h2 class="section-title">사용언어</h2>
+        <div class="cards-column">
+          <div class="card">
+            <span class="material-icons card-icon">code</span>
+            <div class="card-title">Python</div>
+            <div class="card-content">강력하고 다양한 용도로 사용</div>
+          </div>
+          <div class="card">
+            <span class="material-icons card-icon">javascript</span>
+            <div class="card-title">JavaScript</div>
+            <div class="card-content">웹 프론트엔드/백엔드 핵심</div>
+          </div>
+          <div class="card">
+            <span class="material-icons card-icon">phone_android</span>
+            <div class="card-title">Dart</div>
+            <div class="card-content">Flutter 앱 개발용 언어</div>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <h2 class="section-title">사용 프레임워크</h2>
+        <div class="cards-column">
+          <div class="card">
+            <span class="material-icons card-icon">flutter_dash</span>
+            <div class="card-title">Flutter</div>
+            <div class="card-content">크로스 플랫폼 앱 개발</div>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <h2 class="section-title">연락처</h2>
+        <div class="cards-column">
+          <div class="card discord-button">
+            <span class="material-icons card-icon">group</span>
+            <div class="card-title">Discord</div>
+            <div class="card-content">_a2den</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    window.addEventListener('scroll', () => window.scrollTo(0, 0));
+    document.body.style.overflow = 'hidden';
+
+    if (window.innerWidth <= 768) {
+      const w = document.createElement('div');
+      w.style.cssText = "position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.95);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;padding:2rem";
+      w.innerHTML = `<span class="material-icons" style="font-size:60px;color:#f44336;margin-bottom:1rem;">warning</span><h2 style="font-size:1.5rem;margin-bottom:1rem;">이 페이지는 모바일을 지원하지 않습니다.</h2><button id="ignoreMobileWarning" style="padding:0.8rem 1.5rem;font-size:1rem;background:#2196f3;color:white;border:none;border-radius:8px;cursor:pointer;">그냥 보기</button>`;
+      document.body.appendChild(w);
+      document.getElementById('ignoreMobileWarning').addEventListener('click', () => w.remove());
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const moreBtn = document.getElementById('moreBtn');
+      const backBtn = document.getElementById('backBtn');
+      const mainContainer = document.getElementById('mainContainer');
+      const detailContainer = document.getElementById('detailContainer');
+
+      moreBtn.addEventListener('click', function () {
+        mainContainer.classList.add('hidden');
+        setTimeout(() => {
+          mainContainer.style.display = 'none';
+          detailContainer.style.display = 'flex';
+          setTimeout(() => {
+            detailContainer.classList.add('visible');
+          }, 50);
+        }, 500);
+      });
+
+      backBtn.addEventListener('click', function () {
+        detailContainer.classList.remove('visible');
+        setTimeout(() => {
+          detailContainer.style.display = 'none';
+          mainContainer.style.display = 'flex';
+          setTimeout(() => {
+            mainContainer.classList.remove('hidden');
+          }, 50);
+        }, 500);
+      });
+    });
+  </script>
 </body>
 </html>
