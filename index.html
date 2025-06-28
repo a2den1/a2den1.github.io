@@ -2,15 +2,20 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>Team Loun</title>
+  <title>Team Loun 리브랜딩</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&display=swap');
     :root {
-      --primary: #3182f6;
+      --primary: #222;
       --bg: #fff;
       --text-main: #222;
       --text-sub: #4a5568;
+      --frame: #c4c4c4;
+      --dot: #fff;
+      --dot-active: #fff;
+      --dot-border: #888;
     }
     html, body {
       margin: 0;
@@ -54,7 +59,7 @@
       width: 100vw;
       max-width: 100vw;
       min-width: 320px;
-      background: #e5e7eb;
+      background: var(--bg);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -68,10 +73,12 @@
       min-height: 320px;
       position: relative;
       overflow: hidden;
-      background: #e11d1d;
+      background: var(--frame);
       display: flex;
       align-items: center;
       justify-content: center;
+      border-radius: 0;
+      border: 1.5px solid var(--frame);
     }
     .carousel-slide {
       display: none;
@@ -94,59 +101,45 @@
       min-height: 320px;
       user-select: none;
       pointer-events: none;
-      background: #e11d1d;
+      background: var(--frame);
+      border-radius: 0;
+      border: none;
     }
     .carousel-content {
       position: absolute;
       left: 8vw;
       top: 50%;
       transform: translateY(-50%);
-      color: #fff;
+      color: #222;
       text-align: left;
       z-index: 2;
-      max-width: 500px;
+      max-width: 600px;
+      text-shadow: 0 2px 10px rgba(255,255,255,0.09);
     }
     .carousel-title {
-      font-size: 2.3rem;
+      font-size: 2.7rem;
       font-weight: 700;
-      line-height: 1.25;
+      line-height: 1.22;
       margin-bottom: 18px;
       letter-spacing: -1px;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.08);
     }
     .carousel-desc {
-      font-size: 1.25rem;
-      margin-bottom: 24px;
-      line-height: 1.7;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.08);
-    }
-    .carousel-btn-main {
-      background: #fff;
-      color: #e11d1d;
-      border: none;
-      border-radius: 22px;
-      padding: 12px 32px;
-      font-size: 1.1rem;
-      font-weight: 500;
-      cursor: pointer;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-      transition: background 0.2s, color 0.2s;
-    }
-    .carousel-btn-main:hover {
-      background: #ffe5e5;
-      color: #b91c1c;
+      font-size: 1.6rem;
+      margin-bottom: 0;
+      line-height: 1.6;
+      color: var(--text-main);
     }
     .carousel-btn {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
       background: rgba(255,255,255,0.85);
-      border: none;
+      border: 2px solid var(--frame);
       border-radius: 50%;
-      width: 46px;
-      height: 46px;
-      font-size: 2rem;
-      color: #e11d1d;
+      width: 54px;
+      height: 54px;
+      font-size: 2.1rem;
+      color: #222;
       cursor: pointer;
       box-shadow: 0 2px 8px rgba(0,0,0,0.08);
       transition: background 0.2s;
@@ -159,48 +152,50 @@
       background: #e5e7eb;
     }
     .carousel-btn.prev {
-      left: 2vw;
+      left: 24px;
     }
     .carousel-btn.next {
-      right: 2vw;
+      right: 24px;
     }
     .carousel-dots {
       display: flex;
       justify-content: center;
-      gap: 10px;
-      margin-top: 18px;
-      margin-bottom: 32px;
+      gap: 13px;
+      margin-top: 22px;
+      margin-bottom: 36px;
     }
     .carousel-dot {
-      width: 13px;
-      height: 13px;
+      width: 16px;
+      height: 16px;
       border-radius: 50%;
-      background: #fff;
-      border: 2px solid #e11d1d;
+      background: var(--dot);
+      border: 2.5px solid var(--dot-border);
       cursor: pointer;
       transition: background 0.2s, border 0.2s;
+      box-sizing: border-box;
+      display: inline-block;
     }
     .carousel-dot.active {
-      background: #e11d1d;
-      border: 2px solid #fff;
+      background: var(--dot-active);
+      border: 2.5px solid var(--primary);
     }
     .main-desc {
-      font-size: 1.45rem;
-      color: var(--text-sub);
+      font-size: 2.1rem;
+      color: var(--text-main);
       text-align: center;
       margin-bottom: 0;
       line-height: 1.7;
       letter-spacing: 0.1px;
-      font-weight: 400;
+      font-weight: 700;
       margin-top: 32px;
     }
     @media (max-width: 900px) {
       .carousel-container, .carousel-slide img {
         height: 300px;
       }
-      .carousel-content { left: 5vw; max-width: 70vw;}
-      .carousel-title { font-size: 1.2rem;}
-      .carousel-desc { font-size: 1rem;}
+      .carousel-content { left: 5vw; max-width: 80vw;}
+      .carousel-title { font-size: 1.4rem;}
+      .carousel-desc { font-size: 1.05rem;}
     }
     @media (max-width: 600px) {
       header {
@@ -212,8 +207,8 @@
         width: 32px;
       }
       .carousel-container, .carousel-slide img {
-        height: 180px;
-        min-height: 120px;
+        height: 160px;
+        min-height: 100px;
       }
       .carousel-content { left: 5vw; max-width: 90vw;}
       .carousel-title { font-size: 1.1rem;}
@@ -224,11 +219,11 @@
         font-size: 1.3rem;
       }
       .carousel-dot {
-        width: 9px;
-        height: 9px;
+        width: 10px;
+        height: 10px;
       }
       .main-desc {
-        font-size: 1.05rem;
+        font-size: 1.1rem;
       }
     }
     .loader-bg {
@@ -267,7 +262,11 @@
     }
   </style>
 </head>
-<body>
+<body
+  oncontextmenu="return false"
+  onselectstart="return false"
+  ondragstart="return false"
+>
   <header>
     <span class="logo">
       <img src="louhostlogo.png" alt="Team Loun Logo">
@@ -286,29 +285,27 @@
         <div class="carousel-slide active">
           <img src="bg.png" alt="배너1">
           <div class="carousel-content">
-            <div class="carousel-title">맵탈케어가 필요한 순간<br>맵탱으로 케어완료</div>
-            <div class="carousel-desc">맵탱이 여러분의 매운맛 고민을 해결해드립니다.</div>
-            <button class="carousel-btn-main">자세히보기 +</button>
+            <div class="carousel-title">2025<br>Team Loun 리브랜딩</div>
           </div>
         </div>
         <div class="carousel-slide">
           <img src="bg2.png" alt="배너2">
           <div class="carousel-content">
-            <div class="carousel-title">새로운 맛의 도전<br>Team Loun과 함께</div>
-            <div class="carousel-desc">다양한 제품과 새로운 경험을 지금 만나보세요.</div>
-            <button class="carousel-btn-main">자세히보기 +</button>
+            <div class="carousel-title">새로운 경험,<br>새로운 기능</div>
           </div>
         </div>
         <div class="carousel-slide">
           <img src="bg3.png" alt="배너3">
           <div class="carousel-content">
-            <div class="carousel-title">고객을 위한 특별한 혜택<br>지금 바로 확인하세요</div>
-            <div class="carousel-desc">이벤트와 프로모션으로 더 큰 즐거움을 드립니다.</div>
-            <button class="carousel-btn-main">자세히보기 +</button>
+            <div class="carousel-title">새로운 경험을 선사합니다.<br>새로운 기능 소개</div>
           </div>
         </div>
-        <button class="carousel-btn prev" aria-label="이전">&lt;</button>
-        <button class="carousel-btn next" aria-label="다음">&gt;</button>
+        <button class="carousel-btn prev" aria-label="이전">
+          <span class="material-icons">chevron_left</span>
+        </button>
+        <button class="carousel-btn next" aria-label="다음">
+          <span class="material-icons">chevron_right</span>
+        </button>
       </div>
       <div class="carousel-dots">
         <button class="carousel-dot active"></button>
@@ -353,6 +350,32 @@
         }, 500);
       }, 1200);
     });
+
+    (function() {
+      let devtoolsOpen = false;
+      const threshold = 160;
+      function detectDevTools() {
+        const widthThreshold = window.outerWidth - window.innerWidth > threshold;
+        const heightThreshold = window.outerHeight - window.innerHeight > threshold;
+        if (widthThreshold || heightThreshold) devtoolsOpen = true;
+        if (devtoolsOpen) {
+          window.close();
+          document.body.innerHTML = "";
+        }
+      }
+      setInterval(detectDevTools, 400);
+      window.addEventListener('keydown', function(e) {
+        if (
+          (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) ||
+          (e.ctrlKey && e.key === 'U') ||
+          (e.key === 'F12')
+        ) {
+          e.preventDefault();
+          window.close();
+          document.body.innerHTML = "";
+        }
+      });
+    })();
   </script>
 </body>
 </html>
