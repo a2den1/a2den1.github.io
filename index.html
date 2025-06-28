@@ -7,9 +7,9 @@
     <style>
         /* 다크 모드 기본 설정 */
         :root {
-            --background-color: #1a1a1a; /* 어두운 배경 */
-            --text-color: #f0f0f0; /* 밝은 텍스트 */
-            --accent-color: #ffd700; /* 노란색 포인트 */
+            --background-color: #1a1a1a;
+            --text-color: #f0f0f0;
+            --accent-color: #ffd700;
         }
 
         body {
@@ -33,7 +33,7 @@
 
         h1 {
             font-size: 2.5em;
-            color: var(--accent-color); /* 제목에 노란색 적용 */
+            color: var(--accent-color);
         }
 
         main {
@@ -53,22 +53,22 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: var(--background-color); /* 웹사이트 배경색과 동일하게 */
+            background-color: var(--background-color);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 9999; /* 다른 요소들 위에 표시 */
-            transition: opacity 0.5s ease-out; /* 부드러운 사라짐 효과 */
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
         }
 
         .loader {
-            border: 8px solid #333; /* 로더 테두리 */
-            border-top: 8px solid var(--accent-color); /* 로더 상단 (포인트 색상) */
+            border: 8px solid #333;
+            border-top: 8px solid var(--accent-color);
             border-radius: 50%;
             width: 60px;
             height: 60px;
-            animation: spin 1.5s linear infinite; /* 회전 애니메이션 */
+            animation: spin 1.5s linear infinite;
         }
 
         @keyframes spin {
@@ -84,7 +84,7 @@
         }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
     <div id="preloader">
         <div class="loader"></div>
         <p class="loading-text">오래 걸리시면, 새로고침하시거나 캐시를 지워주세요.</p>
@@ -94,21 +94,45 @@
         <h1>AIDEN</h1>
     </header>
     <main>
-        <!-- 웹사이트의 주요 콘텐츠가 여기에 들어갑니다. -->
         <p>환영합니다.</p>
     </main>
 
     <script>
+        (function() {
+            let devtoolsOpen = false;
+            const threshold = 160;
+            function detectDevTools() {
+                const widthThreshold = window.outerWidth - window.innerWidth > threshold;
+                const heightThreshold = window.outerHeight - window.innerHeight > threshold;
+                if (widthThreshold || heightThreshold) devtoolsOpen = true;
+                if (devtoolsOpen) {
+                    window.close();
+                    document.body.innerHTML = "";
+                }
+            }
+            setInterval(detectDevTools, 400);
+            window.addEventListener('keydown', function(e) {
+                if (
+                    (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) ||
+                    (e.ctrlKey && e.key === 'U') ||
+                    (e.key === 'F12')
+                ) {
+                    e.preventDefault();
+                    window.close();
+                    document.body.innerHTML = "";
+                }
+            });
+        })();
+
         window.addEventListener('load', function() {
             const preloader = document.getElementById('preloader');
             if (preloader) {
-                // 최소 1초 동안 로딩 화면을 보여준 후 숨깁니다.
                 setTimeout(() => {
                     preloader.style.opacity = '0';
                     preloader.addEventListener('transitionend', function() {
                         preloader.style.display = 'none';
-                    }, { once: true }); // 한 번만 실행되도록 설정
-                }, 1000); // 1초 유지
+                    }, { once: true });
+                }, 1000);
             }
         });
     </script>
