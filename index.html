@@ -2,184 +2,38 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>AIDEN</title>
+  <title>접근 권한 없음</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   <style>
-    * {
+    body, html {
       margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html,
-    body {
       height: 100%;
-      overflow: hidden;
-    }
-
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: linear-gradient(270deg, #ff6b6b, #ffa500, #ff8c94);
-      background-size: 600% 600%;
-      animation: gradientShift 20s ease infinite;
-      position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
+      background-color: #f5f5f5;
+      font-family: 'Arial', sans-serif;
     }
-
-    @keyframes gradientShift {
-      0% {
-        background-position: 0% 50%;
-      }
-
-      50% {
-        background-position: 100% 50%;
-      }
-
-      100% {
-        background-position: 0% 50%;
-      }
+    .container {
+      text-align: center;
+      color: #555;
     }
-
-    .blur-background {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.2) 0%, transparent 40%),
-        radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.15) 0%, transparent 40%),
-        radial-gradient(circle at 60% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-      backdrop-filter: blur(100px);
-      z-index: 1;
-    }
-
-    .main-container,
-    .detail-container {
-      position: absolute;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-      width: 100%;
-      height: 100%;
-      transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-
-    .main-container.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .detail-container {
-      display: none;
-      opacity: 0;
-    }
-
-    .detail-container.visible {
-      display: flex;
-      opacity: 1;
-    }
-
-    .logo {
-      width: 200px;
-      height: auto;
-      margin-bottom: 2rem;
-    }
-
-    .buttons-container {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .button {
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(30px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 20px;
-      padding: 1.2rem 2rem;
-      color: white;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      font-size: 1rem;
-      font-weight: 500;
-      transition: all 0.4s ease, box-shadow 0.6s ease;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-    }
-
-    .button:hover {
-      background: rgba(255, 255, 255, 0.15);
-      transform: translateY(-2px);
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2), 0 0 20px rgba(255, 255, 255, 0.15),
-        0 15px 45px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-    }
-
     .material-icons {
+      font-size: 64px;
+      color: #d32f2f;
+      display: block;
+      margin-bottom: 16px;
+    }
+    p {
       font-size: 24px;
+      font-weight: 600;
     }
   </style>
 </head>
-<body oncontextmenu="return false" onwheel="return false" onscroll="return false">
-  <div class="blur-background"></div>
-
-  <div class="main-container" id="mainContainer">
-    <img src="logo.png" alt="AIDEN" class="logo" />
-    <div class="buttons-container">
-      <button class="button" id="moreBtn">
-        <span class="material-icons">expand_more</span>
-        더보기
-      </button>
-      <a href="#" class="button">
-        <span class="material-icons">group</span>
-        _a2den
-      </a>
-    </div>
+<body>
+  <div class="container">
+    <span class="material-icons">lock</span>
+    <p>접근 권한이 없습니다.</p>
   </div>
-
-  <div class="detail-container" id="detailContainer">
-    <h2 style="color: white; font-size: 2rem; margin-bottom: 1rem;">더보기 페이지입니다.</h2>
-    <p style="color: white; font-size: 1rem; text-align: center; max-width: 500px;">
-      이곳은 '더보기'를 클릭했을 때 표시되는 상세 페이지입니다.
-    </p>
-    <button class="button" id="backBtn" style="margin-top: 2rem;">
-      <span class="material-icons">arrow_back</span>
-      돌아가기
-    </button>
-  </div>
-
-  <script>
-    const moreBtn = document.getElementById('moreBtn');
-    const backBtn = document.getElementById('backBtn');
-    const mainContainer = document.getElementById('mainContainer');
-    const detailContainer = document.getElementById('detailContainer');
-
-    moreBtn.addEventListener('click', function () {
-      mainContainer.classList.add('hidden');
-      setTimeout(() => {
-        mainContainer.style.display = 'none';
-        detailContainer.classList.add('visible');
-      }, 500);
-    });
-
-    backBtn.addEventListener('click', function () {
-      detailContainer.classList.remove('visible');
-      setTimeout(() => {
-        mainContainer.style.display = 'flex';
-        mainContainer.classList.remove('hidden');
-      }, 500);
-    });
-  </script>
 </body>
 </html>
