@@ -126,8 +126,8 @@
                 inset 0 -1px 0 rgba(0, 0, 0, 0.1);
         }
 
-        .discord-button::before {
-            background: linear-gradient(135deg, rgba(88, 101, 242, 0.2) 0%, transparent 50%);
+        .discord-button::after {
+            background: linear-gradient(90deg, transparent, rgba(88, 101, 242, 0.4), transparent);
         }
 
         .discord-button:hover {
@@ -210,14 +210,10 @@
                 const x = e.clientX / window.innerWidth;
                 const y = e.clientY / window.innerHeight;
                 
-                const hue1 = Math.floor(200 + x * 60);
-                const hue2 = Math.floor(260 + y * 40);
-                const hue3 = Math.floor(300 + (x + y) * 30);
-                
                 body.style.background = `linear-gradient(${135 + x * 90}deg, 
-                    hsl(${hue1}, 70%, 65%) 0%, 
-                    hsl(${hue2}, 60%, 60%) 50%, 
-                    hsl(${hue3}, 80%, 75%) 100%)`;
+                    #ffd700 ${x * 20}%, 
+                    #ff8c00 ${30 + y * 40}%, 
+                    #8b4513 ${70 + (x + y) * 15}%)`;
             });
 
             function animate() {
