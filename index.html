@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Static Gradient Background with Logo and Buttons</title>
+    <title>Static Gradient Background with Logo and Project Cards</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         body {
@@ -15,6 +15,31 @@
             align-items: center;
             background: radial-gradient(circle at 50% 50%, #D4A017, #A0522D);
             background-size: 200% 200%;
+        }
+
+        .central-tab {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-in-out forwards;
+            transition: opacity 0.5s ease;
+        }
+
+        .central-tab.hidden {
+            opacity: 0;
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .logo {
@@ -48,6 +73,7 @@
             font-size: 16px;
             text-decoration: none;
             transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         .glass-button:hover {
@@ -59,20 +85,141 @@
         .material-icons {
             font-size: 24px;
         }
+
+        .project-container {
+            display: none;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+            max-width: 800px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .project-container.active {
+            display: flex;
+            opacity: 1;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .project-card {
+            width: 200px;
+            height: 250px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            backdrop-filter: blur(8px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.3s ease;
+        }
+
+        .project-card:hover {
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .project-title {
+            color: white;
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            margin: 10px;
+            text-align: center;
+        }
+
+        .project-description {
+            color: white;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            padding: 10px;
+            text-align: center;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            opacity: 0;
+            transform: translateY(100%);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover .project-description {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .back-button {
+            width: 200px;
+            height: 250px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            backdrop-filter: blur(8px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            color: white;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 <body>
-    <img src="logo.png" alt="Logo" class="logo">
-    <div class="divider"></div>
-    <div class="button-container">
-        <a href="#" class="glass-button">
-            <span class="material-icons">expand_more</span>
-            더보기
-        </a>
-        <a href="https://discord.com/users/_a2den" class="glass-button">
-            <span class="material-icons">contact_page</span>
-            연락처
+    <div class="central-tab" id="centralTab">
+        <img src="logo.png" alt="Logo" class="logo">
+        <div class="divider"></div>
+        <div class="button-container">
+            <a href="#" class="glass-button" onclick="showProjects()">
+                <span class="material-icons">folder</span>
+                프로젝트
+            </a>
+            <a href="https://discord.com/users/_a2den" class="glass-button">
+                <span class="material-icons">contact_page</span>
+                연락처
+            </a>
+        </div>
+    </div>
+    <div class="project-container" id="projectContainer">
+        <div class="project-card">
+            <div class="project-title">프로젝트 1</div>
+            <div class="project-description">이 프로젝트는 혁신적인 웹 애플리케이션으로, 사용자 경험을 개선합니다.</div>
+        </div>
+        <div class="project-card">
+            <div class="project-title">프로젝트 2</div>
+            <div class="project-description">데이터 분석을 위한 강력한 도구로, 실시간 결과를 제공합니다.</div>
+        </div>
+        <div class="project-card">
+            <div class="project-title">프로젝트 3</div>
+            <div class="project-description">모바일 친화적인 디자인으로, 어디서나 접근 가능합니다.</div>
+        </div>
+        <a href="#" class="back-button" onclick="showCentralTab()">
+            <span class="material-icons">arrow_back</span>
+            이전
         </a>
     </div>
+    <script>
+        function showProjects() {
+            document.getElementById('centralTab').classList.add('hidden');
+            document.getElementById('projectContainer').classList.add('active');
+        }
+
+        function showCentralTab() {
+            document.getElementById('projectContainer').classList.remove('active');
+            document.getElementById('centralTab').classList.remove('hidden');
+        }
+    </script>
 </body>
 </html>
