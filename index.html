@@ -173,7 +173,7 @@
             font-size: 24px;
         }
 
-        /* Detail page styles */
+
         .back-button {
             position: absolute;
             top: 2rem;
@@ -482,7 +482,7 @@
 <body>
     <div class="blur-background"></div>
     
-    <!-- Main Page -->
+
     <div class="main-container" id="mainContainer">
         <img src="logo.png" alt="AIDEN" class="logo">
         
@@ -499,7 +499,7 @@
         </div>
     </div>
 
-    <!-- Detail Page -->
+
     <div class="detail-container" id="detailContainer">
         <button class="button back-button" id="backBtn">
             <span class="material-icons">arrow_back</span>
@@ -618,7 +618,7 @@
             let currentX = 0;
             let currentY = 0;
 
-            // Mouse move effect
+
             document.addEventListener('mousemove', function(e) {
                 mouseX = (e.clientX / window.innerWidth - 0.5) * 30;
                 mouseY = (e.clientY / window.innerHeight - 0.5) * 30;
@@ -642,7 +642,7 @@
             
             animate();
 
-            // Logo hover effect
+            
             const logo = document.querySelector('.logo');
             logo.addEventListener('mouseenter', function() {
                 this.style.transform = 'scale(1.05) rotateY(5deg)';
@@ -652,23 +652,23 @@
                 this.style.transform = 'scale(1) rotateY(0deg)';
             });
 
-            // Card click interaction
+       
             const languageCards = document.querySelectorAll('.language-cards .card');
             languageCards.forEach(card => {
                 card.addEventListener('click', function() {
-                    // Remove active class from all cards
+                    
                     languageCards.forEach(c => c.classList.remove('active'));
-                    // Add active class to clicked card
+
                     this.classList.add('active');
                     
-                    // Remove active class after 3 seconds
+                   
                     setTimeout(() => {
                         this.classList.remove('active');
                     }, 3000);
                 });
             });
 
-            // Page transition
+         
             moreBtn.addEventListener('click', function() {
                 mainContainer.classList.add('hidden');
                 setTimeout(() => {
