@@ -16,6 +16,7 @@
             background: radial-gradient(circle at 50% 50%, #D4A017, #A0522D);
             background-size: 200% 200%;
             user-select: none;
+            position: relative;
         }
 
         .central-tab {
@@ -234,6 +235,16 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             transform: translateY(-2px);
         }
+
+        .footer {
+            position: fixed;
+            bottom: 10px;
+            color: #888888;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            text-align: center;
+            z-index: 1;
+        }
     </style>
 </head>
 <body>
@@ -274,6 +285,7 @@
             </a>
         </div>
     </div>
+    <div class="footer">본 페이지의 logo.png 이미지는 모두 디스코드 _a2den의 소유입니다.</div>
     <script>
         function showProjects() {
             document.getElementById('centralTab').classList.add('hidden');
