@@ -16,6 +16,7 @@
             --background-color: #1a1a1a;
             --text-color: #f0f0f0;
             --accent-color: #ffd700;
+            --card-background: #2a2a2a;
         }
 
         body {
@@ -50,6 +51,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            gap: 20px; /* 카드 간의 간격 */
         }
 
         #scroll-content-container section {
@@ -64,25 +66,57 @@
             margin-bottom: 20px;
         }
 
-        #scroll-content-container p, #scroll-content-container ul {
+        #scroll-content-container p {
             font-size: 1.2em;
             line-height: 1.8;
             color: var(--text-color);
         }
 
-        #scroll-content-container ul {
-            list-style: none;
-            padding: 0;
+        .card {
+            background-color: var(--card-background);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px; /* 각 카드 하단 간격 */
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px; /* 카드 최대 너비 */
+            opacity: 0; /* 초기에는 투명 */
+            transform: translateY(20px); /* 아래에서 위로 올라오는 효과를 위해 초기 위치 설정 */
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out; /* 애니메이션 효과 */
         }
 
-        #scroll-content-container li {
-            margin-bottom: 10px;
+        .card.is-visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        .icon-placeholder {
-            font-size: 0.9em;
-            color: #888;
-            margin-left: 5px;
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            min-width: 40px; /* 아이콘 크기 고정 */
+            min-height: 40px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8em;
+            color: var(--background-color);
+            margin-right: 15px;
+            font-weight: bold;
+        }
+
+        .card-content {
+            flex-grow: 1;
+            text-align: left;
+        }
+
+        .card-content p {
+            margin: 0;
+            font-size: 1.1em;
+            color: var(--text-color);
         }
 
         #aiden-image-placeholder {
@@ -104,7 +138,6 @@
             max-height: 100%;
             display: block;
         }
-
 
         #preloader {
             position: fixed;
@@ -160,16 +193,34 @@
 
         <section>
             <h2>사용 언어</h2>
-            <ul>
-                <li>python <span class="icon-placeholder">(카드 , 아이콘)</span></li>
-                <li>js <span class="icon-placeholder">(카드 , 아이콘)</span></li>
-                <li>등등 <span class="icon-placeholder">(카드 , 아이콘)</span></li>
-            </ul>
+            <div class="card">
+                <div class="card-icon">ICON</div>
+                <div class="card-content">
+                    <p>Python</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-icon">ICON</div>
+                <div class="card-content">
+                    <p>JavaScript</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-icon">ICON</div>
+                <div class="card-content">
+                    <p>등등</p>
+                </div>
+            </div>
         </section>
 
         <section>
             <h2>연락처</h2>
-            <p>디스코드 _a2den. <span class="icon-placeholder">(카드 , 아이콘)</span></p>
+            <div class="card">
+                <div class="card-icon">ICON</div>
+                <div class="card-content">
+                    <p>디스코드 _a2den.</p>
+                </div>
+            </div>
         </section>
 
         <div id="aiden-image-placeholder">
@@ -231,6 +282,26 @@
                 const contentFadeEnd = initialAidenHeight * 1.5;
                 let contentOpacity = Math.max(0, Math.min(1, (scrollPosition - contentFadeStart) / (contentFadeEnd - contentFadeStart)));
                 scrollContentContainer.style.opacity = contentOpacity;
+            });
+
+            const cards = document.querySelectorAll('.card');
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            cards.forEach(card => {
+                observer.observe(card);
             });
         });
     </script>
