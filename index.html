@@ -14,7 +14,6 @@
       box-sizing: border-box;
     }
 
-    /* Body & Background */
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       height: 100vh;
@@ -22,6 +21,7 @@
       background: linear-gradient(135deg, #ff6b6b 0%, #ffa500 50%, #ff8c94 100%);
       position: relative;
       transition: background 0.3s ease;
+      color: white;
     }
 
     .blur-background {
@@ -39,7 +39,7 @@
       z-index: 1;
     }
 
-    /* 왼쪽 상단 언어 아이콘 */
+    /* 왼쪽 상단 언어 변경 버튼 */
     #language-button {
       position: fixed;
       top: 16px;
@@ -52,7 +52,7 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      z-index: 100;
+      z-index: 9999;
       transition: background 0.3s ease;
     }
 
@@ -66,7 +66,6 @@
       user-select: none;
     }
 
-    /* 메인 컨테이너 */
     .main-container {
       position: relative;
       z-index: 2;
@@ -76,14 +75,7 @@
       align-items: center;
       justify-content: center;
       padding: 2rem;
-      transition: opacity 0.5s ease, transform 0.5s ease;
-      color: white;
       text-align: center;
-    }
-
-    .main-container.hidden {
-      opacity: 0;
-      transform: translateY(-50px);
     }
 
     .logo {
@@ -179,11 +171,11 @@
       border-color: rgba(255, 140, 0, 0.3);
     }
 
-    /* 언어 선택 모달 백그라운드 */
+    /* 언어 선택 모달 */
     #language-modal {
       display: none;
       position: fixed;
-      z-index: 200;
+      z-index: 10000;
       left: 0;
       top: 0;
       width: 100vw;
@@ -230,19 +222,26 @@
     #language-modal button:hover {
       background: rgba(255, 255, 255, 0.3);
     }
+
+    #language-modal #modal-close {
+      margin-top: 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+    }
   </style>
 </head>
 
 <body>
   <div class="blur-background"></div>
 
-  <!-- 왼쪽 상단 언어 버튼 -->
+  <!-- 왼쪽 상단 언어 변경 아이콘 -->
   <div id="language-button" title="언어 변경">
     <span class="material-icons">language</span>
   </div>
 
-  <!-- 메인 컨테이너 -->
-  <main class="main-container" id="main-content">
+  <main class="main-container">
     <img src="https://i.ibb.co/FJ3Gq8V/logo.png" alt="AIDEN Logo" class="logo" />
     <h1 id="main-title">AIDEN - AI Discord Bot</h1>
     <p id="main-description">Discord에서 AI를 쉽고 빠르게 경험하세요.</p>
@@ -261,19 +260,20 @@
       <button data-lang="ko">한국어</button>
       <button data-lang="en">English</button>
       <br />
-      <button id="modal-close" style="margin-top: 1rem; background: rgba(255,255,255,0.05); border:none; font-weight:600;">취소</button>
+      <button id="modal-close">취소</button>
     </div>
   </div>
 
   <script>
-    // DOM 요소들
     const langBtn = document.getElementById('language-button');
     const langModal = document.getElementById('language-modal');
     const modalCloseBtn = document.getElementById('modal-close');
+
     const mainTitle = document.getElementById('main-title');
     const mainDescription = document.getElementById('main-description');
+    const discordButton = document.querySelector('.discord-button');
+    const moreButton = document.getElementById('more-button');
 
-    // 언어별 텍스트 데이터
     const texts = {
       ko: {
         title: 'AIDEN - AI Discord Bot',
@@ -289,42 +289,37 @@
       }
     };
 
-    // 언어 변경 함수
     function setLanguage(lang) {
       if (!texts[lang]) return;
 
-      mainTitle.textContent = texts[lang].title;
-      mainDescription.textContent = texts[lang].description;
+      if (mainTitle) mainTitle.textContent = texts[lang].title;
+      if (mainDescription) mainDescription.textContent = texts[lang].description;
 
-      // 버튼 텍스트 변경 (디스코드 초대, 더보기)
-      document.querySelector('.discord-button').childNodes.forEach(node => {
-        if (node.nodeType === Node.TEXT_NODE) {
-          node.textContent = ' ' + texts[lang].invite;
-        }
-      });
-      document.getElementById('more-button').textContent = texts[lang].more;
+      if (discordButton) {
+        let icon = discordButton.querySelector('.material-icons');
+        discordButton.textContent = '';
+        if (icon) discordButton.appendChild(icon);
+        discordButton.append(' ' + texts[lang].invite);
+      }
 
-      // 모달 닫기
-      langModal.classList.remove('active');
+      if (moreButton) moreButton.textContent = texts[lang].more;
+
+      langModal.style.display = 'none';
     }
 
-    // 언어 아이콘 클릭 시 모달 열기
     langBtn.addEventListener('click', () => {
-      langModal.classList.add('active');
+      langModal.style.display = 'flex';
     });
 
-    // 모달 배경 및 취소 버튼 클릭 시 모달 닫기
     langModal.addEventListener('click', (e) => {
       if (e.target === langModal || e.target === modalCloseBtn) {
-        langModal.classList.remove('active');
+        langModal.style.display = 'none';
       }
     });
 
-    // 언어 선택 버튼 클릭 시 언어 변경
     langModal.querySelectorAll('button[data-lang]').forEach(btn => {
       btn.addEventListener('click', () => {
-        const selectedLang = btn.getAttribute('data-lang');
-        setLanguage(selectedLang);
+        setLanguage(btn.getAttribute('data-lang'));
       });
     });
   </script>
