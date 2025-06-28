@@ -4,195 +4,193 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AIDEN</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        @font-face {
-            font-family: 'DNFBitBitv2';
-            font-style: normal;
-            font-weight: 400;
-            src: url('//cdn.df.nexon.com/img/common/font/DNFBitBitv2.otf') format('opentype');
-        }
-
-        :root {
-            --background-color: #1a1a1a;
-            --text-color: #f0f0f0;
-            --accent-color: #ffd700;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            overflow: hidden; /* 스크롤 방지 */
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            position: relative;
         }
 
-        /* 프리로더 스타일 */
-        #preloader {
-            position: fixed;
+        .blur-background {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: var(--background-color);
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.2) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 60% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            backdrop-filter: blur(100px);
+            transition: transform 0.3s ease-out;
+            z-index: 1;
+        }
+
+        .main-container {
+            position: relative;
+            z-index: 2;
+            height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease-out;
-        }
-
-        .loader {
-            border: 8px solid #333;
-            border-top: 8px solid var(--accent-color);
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            animation: spin 1.5s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .loading-text {
-            margin-top: 20px;
-            color: var(--text-color);
-            font-size: 1.1em;
-            text-align: center;
-        }
-
-        /* 메인 콘텐츠 스타일 */
-        #main-content {
-            display: none; /* 초기에는 숨김 */
-            flex-direction: column;
             justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 20px;
-            opacity: 0; /* 페이드 인 효과를 위해 초기 투명도 설정 */
-            transition: opacity 1s ease-in;
-            width: 100%;
-            max-width: 600px;
+            padding: 2rem;
         }
 
-        #main-content.show {
+        .logo {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            object-fit: cover;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo:hover {
+            transform: scale(1.05) rotateY(5deg);
+        }
+
+        .buttons-container {
             display: flex;
-            opacity: 1;
+            gap: 1.5rem;
+            align-items: center;
         }
 
-        #main-content h1 {
-            font-family: 'DNFBitBitv2', sans-serif;
-            font-size: 3em;
-            color: var(--accent-color);
-            margin-bottom: 30px;
-        }
-
-        #main-content input[type="text"] {
-            width: 80%;
-            padding: 15px;
-            font-size: 1.1em;
-            border: 2px solid var(--accent-color);
-            border-radius: 8px;
-            background-color: #2a2a2a;
-            color: var(--text-color);
-            outline: none;
-            margin-bottom: 20px;
-        }
-
-        #main-content input[type="text"]::placeholder {
-            color: #888;
-        }
-
-        #discord-button {
-            padding: 10px 20px;
-            font-size: 1em;
-            background-color: #7289da; /* Discord 색상 */
+        .button {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 1.2rem 2rem;
             color: white;
-            border: none;
-            border-radius: 5px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
 
-        #discord-button:hover {
-            background-color: #5b6eae;
+        .button:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .button:active {
+            transform: translateY(0);
+        }
+
+        .discord-button {
+            background: rgba(88, 101, 242, 0.2);
+            border-color: rgba(88, 101, 242, 0.3);
+        }
+
+        .discord-button:hover {
+            background: rgba(88, 101, 242, 0.3);
+        }
+
+        .material-icons {
+            font-size: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                width: 150px;
+                height: 150px;
+                margin-bottom: 2rem;
+            }
+
+            .buttons-container {
+                flex-direction: column;
+                gap: 1rem;
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-container {
+                padding: 1rem;
+            }
+            
+            .logo {
+                width: 120px;
+                height: 120px;
+            }
         }
     </style>
 </head>
-<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
-    <div id="preloader">
-        <div class="loader"></div>
-        <p class="loading-text">오래 걸리시면, 새로고침하시거나 캐시를 지워주세요.</p>
-    </div>
-
-    <div id="main-content">
-        <h1>무엇을 도와드릴까요?</h1>
-        <input type="text" placeholder="궁금한 점을 입력해주세요.">
-        <button id="discord-button">Discord 계정: _a2den.</button>
+<body>
+    <div class="blur-background"></div>
+    
+    <div class="main-container">
+        <img src="logo.png" alt="AIDEN" class="logo">
+        
+        <div class="buttons-container">
+            <a href="#" class="button">
+                <span class="material-icons">expand_more</span>
+                더보기
+            </a>
+            
+            <a href="#" class="button discord-button">
+                <span class="material-icons">group</span>
+                _a2den
+            </a>
+        </div>
     </div>
 
     <script>
-        (function() {
-            let devtoolsOpen = false;
-            const threshold = 160;
-            function detectDevTools() {
-                const widthThreshold = window.outerWidth - window.innerWidth > threshold;
-                const heightThreshold = window.outerHeight - window.innerHeight > threshold;
-                if (widthThreshold || heightThreshold) devtoolsOpen = true;
-                if (devtoolsOpen) {
-                    window.close();
-                    document.body.innerHTML = "";
-                }
-            }
-            setInterval(detectDevTools, 400);
-            window.addEventListener('keydown', function(e) {
-                if (
-                    (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) ||
-                    (e.ctrlKey && e.key === 'U') ||
-                    (e.key === 'F12')
-                ) {
-                    e.preventDefault();
-                    window.close();
-                    document.body.innerHTML = "";
-                }
+        document.addEventListener('DOMContentLoaded', function() {
+            const blurBackground = document.querySelector('.blur-background');
+            let mouseX = 0;
+            let mouseY = 0;
+            let currentX = 0;
+            let currentY = 0;
+
+            document.addEventListener('mousemove', function(e) {
+                mouseX = (e.clientX / window.innerWidth - 0.5) * 30;
+                mouseY = (e.clientY / window.innerHeight - 0.5) * 30;
             });
-        })();
 
-        window.addEventListener('load', function() {
-            const preloader = document.getElementById('preloader');
-            const mainContent = document.getElementById('main-content');
-            const discordButton = document.getElementById('discord-button');
-            const discordID = "_a2den."; // Discord ID
-
-            if (preloader) {
-                setTimeout(() => {
-                    preloader.style.opacity = '0';
-                    preloader.addEventListener('transitionend', function() {
-                        preloader.style.display = 'none';
-                        mainContent.classList.add('show'); // 메인 콘텐츠 표시
-                    }, { once: true });
-                }, 1000);
+            function animate() {
+                currentX += (mouseX - currentX) * 0.1;
+                currentY += (mouseY - currentY) * 0.1;
+                
+                blurBackground.style.transform = `translate(${currentX}px, ${currentY}px)`;
+                requestAnimationFrame(animate);
             }
+            
+            animate();
 
-            discordButton.addEventListener('click', function() {
-                // Discord ID를 클립보드에 복사
-                navigator.clipboard.writeText(discordID).then(() => {
-                    const originalText = discordButton.textContent;
-                    discordButton.textContent = "ID 복사됨!";
-                    setTimeout(() => {
-                        discordButton.textContent = originalText;
-                    }, 1500); // 1.5초 후 원래 텍스트로 복원
-                }).catch(err => {
-                    console.error('클립보드 복사 실패:', err);
-                    alert("Discord ID 복사에 실패했습니다. 직접 복사해주세요: " + discordID);
-                });
+            const logo = document.querySelector('.logo');
+            logo.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05) rotateY(5deg)';
+            });
+            
+            logo.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1) rotateY(0deg)';
             });
         });
     </script>
