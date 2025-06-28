@@ -44,29 +44,107 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       min-height: 0;
       opacity: 0;
       transition: opacity 0.5s;
+      padding-top: 40px;
     }
-    .main-title {
-      font-size: 3.2rem;
-      font-weight: 700;
+    .carousel-container {
+      position: relative;
+      width: 420px;
+      max-width: 95vw;
+      height: 520px;
+      margin: 0 auto;
+      overflow: hidden;
+      border-radius: 32px;
+      box-shadow: 0 4px 32px rgba(49,130,246,0.08);
+      background: #f1f3f6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .carousel-slide {
+      display: none;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0; left: 0;
+      justify-content: center;
+      align-items: center;
+    }
+    .carousel-slide.active {
+      display: flex;
+      animation: fadeIn 0.5s;
+    }
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 32px;
+      user-select: none;
+      pointer-events: none;
+    }
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.85);
+      border: none;
+      border-radius: 50%;
+      width: 46px;
+      height: 46px;
+      font-size: 2rem;
       color: var(--primary);
-      text-align: center;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: background 0.2s;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .carousel-btn:active {
+      background: #e5e7eb;
+    }
+    .carousel-btn.prev {
+      left: 14px;
+    }
+    .carousel-btn.next {
+      right: 14px;
+    }
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 18px;
       margin-bottom: 32px;
-      letter-spacing: -1px;
-      margin-top: 0;
-      line-height: 1.18;
+    }
+    .carousel-dot {
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: #dbeafe;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .carousel-dot.active {
+      background: var(--primary);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
     .main-desc {
-      font-size: 1.7rem;
+      font-size: 1.45rem;
       color: var(--text-sub);
       text-align: center;
       margin-bottom: 0;
       line-height: 1.7;
       letter-spacing: 0.1px;
       font-weight: 400;
+      margin-top: 12px;
     }
     @media (max-width: 600px) {
       header {
@@ -77,11 +155,25 @@
         height: 32px;
         width: 32px;
       }
-      .main-title {
-        font-size: 2rem;
+      .carousel-container {
+        width: 98vw;
+        height: 240px;
+        border-radius: 18px;
+      }
+      .carousel-slide img {
+        border-radius: 18px;
+      }
+      .carousel-btn {
+        width: 34px;
+        height: 34px;
+        font-size: 1.3rem;
+      }
+      .carousel-dot {
+        width: 9px;
+        height: 9px;
       }
       .main-desc {
-        font-size: 1.1rem;
+        font-size: 1.05rem;
       }
     }
     .loader-bg {
@@ -130,48 +222,46 @@
     </div>
   </div>
   <main id="main-content" style="opacity:0;">
-    <h1 class="main-title">확실한 매출을 위한<br>새로운 판매 채널</h1>
+    <div class="carousel-container">
+      <div class="carousel-slide active"><img src="bg.png" alt="배너1"></div>
+      <div class="carousel-slide"><img src="bg2.png" alt="배너2"></div>
+      <div class="carousel-slide"><img src="bg3.png" alt="배너3"></div>
+      <button class="carousel-btn prev" aria-label="이전">&lt;</button>
+      <button class="carousel-btn next" aria-label="다음">&gt;</button>
+    </div>
+    <div class="carousel-dots">
+      <button class="carousel-dot active"></button>
+      <button class="carousel-dot"></button>
+      <button class="carousel-dot"></button>
+    </div>
     <div class="main-desc">
       압도적인 트래픽과 차별화된 쇼핑 경험으로<br>
       추가 매출의 기회를 만나보세요.
     </div>
   </main>
   <script>
-    (function() {
-      let devtoolsOpen = false;
-      const threshold = 160;
-      function detectDevTools() {
-        const widthThreshold = window.outerWidth - window.innerWidth > threshold;
-        const heightThreshold = window.outerHeight - window.innerHeight > threshold;
-        if (widthThreshold || heightThreshold) {
-          devtoolsOpen = true;
-        }
-        if (
-          window.console && (
-            window.console.firebug ||
-            (window.console.profile && window.console.profile.length > 0)
-          )
-        ) {
-          devtoolsOpen = true;
-        }
-        if (devtoolsOpen) {
-          window.close();
-          document.body.innerHTML = "";
-        }
-      }
-      setInterval(detectDevTools, 400);
-      window.addEventListener('keydown', function(e) {
-        if (
-          (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) ||
-          (e.ctrlKey && e.key === 'U') ||
-          (e.key === 'F12')
-        ) {
-          e.preventDefault();
-          window.close();
-          document.body.innerHTML = "";
-        }
+    // Carousel
+    const slides = document.querySelectorAll('.carousel-slide');
+    const dots = document.querySelectorAll('.carousel-dot');
+    const prevBtn = document.querySelector('.carousel-btn.prev');
+    const nextBtn = document.querySelector('.carousel-btn.next');
+    let current = 0;
+    function showSlide(idx) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === idx);
+        dots[i].classList.toggle('active', i === idx);
       });
-    })();
+      current = idx;
+    }
+    prevBtn.addEventListener('click', () => {
+      showSlide((current + slides.length - 1) % slides.length);
+    });
+    nextBtn.addEventListener('click', () => {
+      showSlide((current + 1) % slides.length);
+    });
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', () => showSlide(i));
+    });
 
     window.addEventListener('load', function() {
       setTimeout(function() {
