@@ -16,7 +16,6 @@
             --background-color: #1a1a1a;
             --text-color: #f0f0f0;
             --accent-color: #ffd700;
-            --card-background: #2a2a2a;
         }
 
         body {
@@ -26,119 +25,13 @@
             margin: 0;
             padding: 0;
             min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        #initial-aiden-display {
-            font-family: 'DNFBitBitv2', sans-serif;
-            font-size: 5em;
-            color: var(--accent-color);
-            height: 100vh;
+            overflow: hidden; /* 스크롤 방지 */
             display: flex;
             justify-content: center;
             align-items: center;
-            text-align: center;
-            transition: opacity 0.5s ease-out;
-            padding-bottom: 100px;
         }
 
-        #scroll-content-container {
-            padding: 20px;
-            text-align: center;
-            opacity: 0;
-            transition: opacity 1s ease-out;
-            min-height: 150vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px; /* 카드 간의 간격 */
-        }
-
-        #scroll-content-container section {
-            margin-bottom: 80px;
-            width: 80%;
-            max-width: 800px;
-        }
-
-        #scroll-content-container h2 {
-            color: var(--accent-color);
-            font-size: 2em;
-            margin-bottom: 20px;
-        }
-
-        #scroll-content-container p {
-            font-size: 1.2em;
-            line-height: 1.8;
-            color: var(--text-color);
-        }
-
-        .card {
-            background-color: var(--card-background);
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 15px; /* 각 카드 하단 간격 */
-            display: flex;
-            align-items: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            width: 100%;
-            max-width: 400px; /* 카드 최대 너비 */
-            opacity: 0; /* 초기에는 투명 */
-            transform: translateY(20px); /* 아래에서 위로 올라오는 효과를 위해 초기 위치 설정 */
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out; /* 애니메이션 효과 */
-        }
-
-        .card.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .card-icon {
-            width: 40px;
-            height: 40px;
-            min-width: 40px; /* 아이콘 크기 고정 */
-            min-height: 40px;
-            background-color: var(--accent-color);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 0.8em;
-            color: var(--background-color);
-            margin-right: 15px;
-            font-weight: bold;
-        }
-
-        .card-content {
-            flex-grow: 1;
-            text-align: left;
-        }
-
-        .card-content p {
-            margin: 0;
-            font-size: 1.1em;
-            color: var(--text-color);
-        }
-
-        #aiden-image-placeholder {
-            width: 100%;
-            max-width: 400px;
-            height: 250px;
-            background-color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #ccc;
-            font-size: 1.2em;
-            text-align: center;
-            margin-top: 50px;
-            margin-bottom: 50px;
-        }
-        #aiden-image-placeholder img {
-            max-width: 100%;
-            max-height: 100%;
-            display: block;
-        }
-
+        /* 프리로더 스타일 */
         #preloader {
             position: fixed;
             top: 0;
@@ -174,6 +67,63 @@
             font-size: 1.1em;
             text-align: center;
         }
+
+        /* 메인 콘텐츠 스타일 */
+        #main-content {
+            display: none; /* 초기에는 숨김 */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            opacity: 0; /* 페이드 인 효과를 위해 초기 투명도 설정 */
+            transition: opacity 1s ease-in;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        #main-content.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        #main-content h1 {
+            font-family: 'DNFBitBitv2', sans-serif;
+            font-size: 3em;
+            color: var(--accent-color);
+            margin-bottom: 30px;
+        }
+
+        #main-content input[type="text"] {
+            width: 80%;
+            padding: 15px;
+            font-size: 1.1em;
+            border: 2px solid var(--accent-color);
+            border-radius: 8px;
+            background-color: #2a2a2a;
+            color: var(--text-color);
+            outline: none;
+            margin-bottom: 20px;
+        }
+
+        #main-content input[type="text"]::placeholder {
+            color: #888;
+        }
+
+        #discord-button {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #7289da; /* Discord 색상 */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #discord-button:hover {
+            background-color: #5b6eae;
+        }
     </style>
 </head>
 <body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
@@ -182,50 +132,10 @@
         <p class="loading-text">오래 걸리시면, 새로고침하시거나 캐시를 지워주세요.</p>
     </div>
 
-    <div id="initial-aiden-display">
-        AIDEN
-    </div>
-
-    <div id="scroll-content-container">
-        <section>
-            <p>안녕하세요. 개발자 AIDEN입니다.</p>
-        </section>
-
-        <section>
-            <h2>사용 언어</h2>
-            <div class="card">
-                <div class="card-icon">ICON</div>
-                <div class="card-content">
-                    <p>Python</p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-icon">ICON</div>
-                <div class="card-content">
-                    <p>JavaScript</p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-icon">ICON</div>
-                <div class="card-content">
-                    <p>등등</p>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <h2>연락처</h2>
-            <div class="card">
-                <div class="card-icon">ICON</div>
-                <div class="card-content">
-                    <p>디스코드 _a2den.</p>
-                </div>
-            </div>
-        </section>
-
-        <div id="aiden-image-placeholder">
-            aiden.png 이미지가 들어갈 곳
-        </div>
+    <div id="main-content">
+        <h1>무엇을 도와드릴까요?</h1>
+        <input type="text" placeholder="궁금한 점을 입력해주세요.">
+        <button id="discord-button">Discord 계정: _a2den.</button>
     </div>
 
     <script>
@@ -257,51 +167,32 @@
 
         window.addEventListener('load', function() {
             const preloader = document.getElementById('preloader');
-            const initialAidenDisplay = document.getElementById('initial-aiden-display');
-            const scrollContentContainer = document.getElementById('scroll-content-container');
+            const mainContent = document.getElementById('main-content');
+            const discordButton = document.getElementById('discord-button');
+            const discordID = "_a2den."; // Discord ID
 
             if (preloader) {
                 setTimeout(() => {
                     preloader.style.opacity = '0';
                     preloader.addEventListener('transitionend', function() {
                         preloader.style.display = 'none';
+                        mainContent.classList.add('show'); // 메인 콘텐츠 표시
                     }, { once: true });
                 }, 1000);
             }
 
-            window.addEventListener('scroll', function() {
-                const scrollPosition = window.scrollY;
-                const initialAidenHeight = initialAidenDisplay.offsetHeight;
-
-                const fadeStart = initialAidenHeight * 0.7;
-                const fadeEnd = initialAidenHeight;
-                let initialAidenOpacity = 1 - Math.max(0, Math.min(1, (scrollPosition - fadeStart) / (fadeEnd - fadeStart)));
-                initialAidenDisplay.style.opacity = initialAidenOpacity;
-
-                const contentFadeStart = initialAidenHeight * 0.5;
-                const contentFadeEnd = initialAidenHeight * 1.5;
-                let contentOpacity = Math.max(0, Math.min(1, (scrollPosition - contentFadeStart) / (contentFadeEnd - contentFadeStart)));
-                scrollContentContainer.style.opacity = contentOpacity;
-            });
-
-            const cards = document.querySelectorAll('.card');
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.1
-            };
-
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                        observer.unobserve(entry.target);
-                    }
+            discordButton.addEventListener('click', function() {
+                // Discord ID를 클립보드에 복사
+                navigator.clipboard.writeText(discordID).then(() => {
+                    const originalText = discordButton.textContent;
+                    discordButton.textContent = "ID 복사됨!";
+                    setTimeout(() => {
+                        discordButton.textContent = originalText;
+                    }, 1500); // 1.5초 후 원래 텍스트로 복원
+                }).catch(err => {
+                    console.error('클립보드 복사 실패:', err);
+                    alert("Discord ID 복사에 실패했습니다. 직접 복사해주세요: " + discordID);
                 });
-            }, observerOptions);
-
-            cards.forEach(card => {
-                observer.observe(card);
             });
         });
     </script>
