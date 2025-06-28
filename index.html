@@ -1,407 +1,116 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <title>Team Loun 리브랜딩</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&display=swap');
-    :root {
-      --primary: #222;
-      --bg: #fff;
-      --text-main: #222;
-      --text-sub: #4a5568;
-      --frame: #c4c4c4;
-      --dot: #fff;
-      --dot-active: #fff;
-      --dot-border: #888;
-    }
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100vw;
-      height: 100vh;
-      background: var(--bg);
-      font-family: 'Noto Sans KR', 'Segoe UI', Arial, sans-serif;
-      color: var(--text-main);
-      min-height: 100vh;
-      min-width: 100vw;
-      box-sizing: border-box;
-    }
-    body {
-      min-height: 100vh;
-      min-width: 100vw;
-      display: flex;
-      flex-direction: column;
-    }
-    header {
-      background: var(--bg);
-      border-bottom: 1px solid #e5e7eb;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      padding: 0 32px;
-      z-index: 10;
-    }
-    .logo img {
-      height: 40px;
-      width: 40px;
-      display: block;
-    }
-    main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      min-height: 0;
-      opacity: 0;
-      transition: opacity 0.5s;
-      padding-top: 0;
-      width: 100vw;
-    }
-    .banner-section {
-      width: 100vw;
-      max-width: 100vw;
-      min-width: 320px;
-      background: var(--bg);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 0;
-      padding: 0;
-    }
-    .carousel-container {
-      width: 100vw;
-      max-width: 100vw;
-      min-width: 320px;
-      height: 37vw;
-      max-height: 370px;
-      min-height: 180px;
-      aspect-ratio: 1000 / 370;
-      position: relative;
-      overflow: hidden;
-      background: var(--frame);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 22px;
-      border: 2px solid var(--frame);
-      margin: 0 auto;
-      box-sizing: border-box;
-    }
-    @media (min-width: 1000px) {
-      .carousel-container {
-        width: 1000px;
-        height: 370px;
-        min-width: 1000px;
-        min-height: 370px;
-        max-width: 1000px;
-        max-height: 370px;
-      }
-    }
-    .carousel-slide {
-      display: none;
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 0; left: 0;
-      justify-content: center;
-      align-items: center;
-    }
-    .carousel-slide.active {
-      display: flex;
-      animation: fadeIn 0.5s;
-    }
-    .carousel-slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 22px;
-      user-select: none;
-      pointer-events: none;
-      background: var(--frame);
-      border: none;
-      display: block;
-    }
-    .carousel-content {
-      position: absolute;
-      left: 7vw;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #222;
-      text-align: left;
-      z-index: 2;
-      max-width: 600px;
-      text-shadow: 0 2px 10px rgba(255,255,255,0.09);
-    }
-    .carousel-title {
-      font-size: 2.7rem;
-      font-weight: 700;
-      line-height: 1.22;
-      margin-bottom: 18px;
-      letter-spacing: -1px;
-    }
-    .carousel-desc {
-      font-size: 1.6rem;
-      margin-bottom: 0;
-      line-height: 1.6;
-      color: var(--text-main);
-    }
-    .carousel-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(255,255,255,0.85);
-      border: 2px solid var(--frame);
-      border-radius: 50%;
-      width: 54px;
-      height: 54px;
-      font-size: 2.1rem;
-      color: #222;
-      cursor: pointer;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      transition: background 0.2s;
-      z-index: 3;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .carousel-btn:active {
-      background: #e5e7eb;
-    }
-    .carousel-btn.prev {
-      left: 24px;
-    }
-    .carousel-btn.next {
-      right: 24px;
-    }
-    .carousel-dots {
-      display: flex;
-      justify-content: center;
-      gap: 13px;
-      margin-top: 22px;
-      margin-bottom: 36px;
-    }
-    .carousel-dot {
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: var(--dot);
-      border: 2.5px solid var(--dot-border);
-      cursor: pointer;
-      transition: background 0.2s, border 0.2s;
-      box-sizing: border-box;
-      display: inline-block;
-    }
-    .carousel-dot.active {
-      background: var(--dot-active);
-      border: 2.5px solid var(--primary);
-    }
-    .main-desc {
-      font-size: 2.1rem;
-      color: var(--text-main);
-      text-align: center;
-      margin-bottom: 0;
-      line-height: 1.7;
-      letter-spacing: 0.1px;
-      font-weight: 700;
-      margin-top: 32px;
-    }
-    @media (max-width: 1100px) {
-      .carousel-container {
-        max-width: 98vw;
-      }
-      .carousel-content { left: 4vw; max-width: 80vw;}
-    }
-    @media (max-width: 900px) {
-      .carousel-title { font-size: 1.4rem;}
-      .carousel-desc { font-size: 1.05rem;}
-    }
-    @media (max-width: 600px) {
-      header {
-        padding: 0 12px;
-        height: 56px;
-      }
-      .logo img {
-        height: 32px;
-        width: 32px;
-      }
-      .carousel-container {
-        border-radius: 12px;
-        min-height: 100px;
-        height: 38vw;
-      }
-      .carousel-slide img {
-        border-radius: 12px;
-      }
-      .carousel-content { left: 4vw; max-width: 90vw;}
-      .carousel-title { font-size: 1.1rem;}
-      .carousel-desc { font-size: 0.9rem;}
-      .carousel-btn {
-        width: 34px;
-        height: 34px;
-        font-size: 1.3rem;
-      }
-      .carousel-dot {
-        width: 10px;
-        height: 10px;
-      }
-      .main-desc {
-        font-size: 1.1rem;
-      }
-    }
-    .loader-bg {
-      position: fixed;
-      z-index: 9999;
-      inset: 0;
-      background: rgba(255,255,255,0.92);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      transition: opacity 0.5s;
-    }
-    .loader {
-      width: 70px;
-      height: 70px;
-      border: 8px solid #e5e7eb;
-      border-top: 8px solid var(--primary);
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin-bottom: 32px;
-    }
-    .loader-message {
-      font-size: 1.15rem;
-      color: #444;
-      text-align: center;
-      line-height: 1.6;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg);}
-      100% { transform: rotate(360deg);}
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIDEN</title>
+    <style>
+        /* 다크 모드 기본 설정 */
+        :root {
+            --background-color: #1a1a1a; /* 어두운 배경 */
+            --text-color: #f0f0f0; /* 밝은 텍스트 */
+            --accent-color: #ffd700; /* 노란색 포인트 */
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #2a2a2a;
+            color: var(--accent-color);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: var(--accent-color); /* 제목에 노란색 적용 */
+        }
+
+        main {
+            flex-grow: 1;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2em;
+        }
+
+        /* 프리로더 스타일 */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--background-color); /* 웹사이트 배경색과 동일하게 */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999; /* 다른 요소들 위에 표시 */
+            transition: opacity 0.5s ease-out; /* 부드러운 사라짐 효과 */
+        }
+
+        .loader {
+            border: 8px solid #333; /* 로더 테두리 */
+            border-top: 8px solid var(--accent-color); /* 로더 상단 (포인트 색상) */
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1.5s linear infinite; /* 회전 애니메이션 */
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            margin-top: 20px;
+            color: var(--text-color);
+            font-size: 1.1em;
+            text-align: center;
+        }
+    </style>
 </head>
-<body
-  oncontextmenu="return false"
-  onselectstart="return false"
-  ondragstart="return false"
->
-  <header>
-    <span class="logo">
-      <img src="louhostlogo.png" alt="Team Loun Logo">
-    </span>
-  </header>
-  <div class="loader-bg" id="loader-bg">
-    <div class="loader"></div>
-    <div class="loader-message">
-      진행중입니다.<br>
-      오래걸리시면, 새로고침 하거나 캐시를 지워주세요.
+<body>
+    <div id="preloader">
+        <div class="loader"></div>
+        <p class="loading-text">오래 걸리시면, 새로고침하시거나 캐시를 지워주세요.</p>
     </div>
-  </div>
-  <main id="main-content" style="opacity:0;">
-    <section class="banner-section">
-      <div class="carousel-container">
-        <div class="carousel-slide active">
-          <img src="bg.png" alt="배너1">
-          <div class="carousel-content">
-            <div class="carousel-title">2025<br>Team Loun 리브랜딩</div>
-          </div>
-        </div>
-        <div class="carousel-slide">
-          <img src="bg2.png" alt="배너2">
-          <div class="carousel-content">
-            <div class="carousel-title">새로운 경험,<br>새로운 기능</div>
-          </div>
-        </div>
-        <div class="carousel-slide">
-          <img src="bg3.png" alt="배너3">
-          <div class="carousel-content">
-            <div class="carousel-title">새로운 경험을 선사합니다.<br>새로운 기능 소개</div>
-          </div>
-        </div>
-        <button class="carousel-btn prev" aria-label="이전">
-          <span class="material-icons">chevron_left</span>
-        </button>
-        <button class="carousel-btn next" aria-label="다음">
-          <span class="material-icons">chevron_right</span>
-        </button>
-      </div>
-      <div class="carousel-dots">
-        <button class="carousel-dot active"></button>
-        <button class="carousel-dot"></button>
-        <button class="carousel-dot"></button>
-      </div>
-    </section>
-    <div class="main-desc">
-      압도적인 트래픽과 차별화된 쇼핑 경험으로<br>
-      추가 매출의 기회를 만나보세요.
-    </div>
-  </main>
-  <script>
-    const slides = document.querySelectorAll('.carousel-slide');
-    const dots = document.querySelectorAll('.carousel-dot');
-    const prevBtn = document.querySelector('.carousel-btn.prev');
-    const nextBtn = document.querySelector('.carousel-btn.next');
-    let current = 0;
-    function showSlide(idx) {
-      slides.forEach((slide, i) => {
-        slide.classList.toggle('active', i === idx);
-        dots[i].classList.toggle('active', i === idx);
-      });
-      current = idx;
-    }
-    prevBtn.addEventListener('click', () => {
-      showSlide((current + slides.length - 1) % slides.length);
-    });
-    nextBtn.addEventListener('click', () => {
-      showSlide((current + 1) % slides.length);
-    });
-    dots.forEach((dot, i) => {
-      dot.addEventListener('click', () => showSlide(i));
-    });
 
-    window.addEventListener('load', function() {
-      setTimeout(function() {
-        document.getElementById('loader-bg').style.opacity = '0';
-        document.getElementById('main-content').style.opacity = '1';
-        setTimeout(function() {
-          document.getElementById('loader-bg').style.display = 'none';
-        }, 500);
-      }, 1200);
-    });
+    <header>
+        <h1>AIDEN</h1>
+    </header>
+    <main>
+        <!-- 웹사이트의 주요 콘텐츠가 여기에 들어갑니다. -->
+        <p>환영합니다.</p>
+    </main>
 
-    (function() {
-      let devtoolsOpen = false;
-      const threshold = 160;
-      function detectDevTools() {
-        const widthThreshold = window.outerWidth - window.innerWidth > threshold;
-        const heightThreshold = window.outerHeight - window.innerHeight > threshold;
-        if (widthThreshold || heightThreshold) devtoolsOpen = true;
-        if (devtoolsOpen) {
-          window.close();
-          document.body.innerHTML = "";
-        }
-      }
-      setInterval(detectDevTools, 400);
-      window.addEventListener('keydown', function(e) {
-        if (
-          (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) ||
-          (e.ctrlKey && e.key === 'U') ||
-          (e.key === 'F12')
-        ) {
-          e.preventDefault();
-          window.close();
-          document.body.innerHTML = "";
-        }
-      });
-    })();
-  </script>
+    <script>
+        window.addEventListener('load', function() {
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                // 최소 1초 동안 로딩 화면을 보여준 후 숨깁니다.
+                setTimeout(() => {
+                    preloader.style.opacity = '0';
+                    preloader.addEventListener('transitionend', function() {
+                        preloader.style.display = 'none';
+                    }, { once: true }); // 한 번만 실행되도록 설정
+                }, 1000); // 1초 유지
+            }
+        });
+    </script>
 </body>
 </html>
