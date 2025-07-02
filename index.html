@@ -1,264 +1,163 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aiden Studio</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f7f6;
-            color: #333;
-        }
-        * {
-            box-sizing: border-box;
-        }
-
-        header {
-            background-color: #2c3e50;
-            color: #ecf0f1;
-            padding: 20px 30px;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-        header h1 {
-            margin: 0;
-            font-size: 2.5em;
-            letter-spacing: 1px;
-        }
-
-        .main-container {
-            display: flex;
-            padding: 20px;
-            gap: 20px;
-            max-width: 1200px;
-            margin: 20px auto;
-            align-items: flex-start;
-        }
-
-        .product-section {
-            flex: 3;
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-        .product-section h2 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 30px;
-            font-size: 1.8em;
-        }
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            justify-content: center;
-        }
-
-        .product-card {
-            background-color: #fdfdfd;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            overflow: hidden;
-            text-align: center;
-            padding-bottom: 15px;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-            cursor: pointer;
-        }
-        .product-card:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-        .product-card img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        .product-card h3 {
-            font-size: 1.2em;
-            margin: 15px 10px 5px 10px;
-            color: #34495e;
-        }
-        .product-card p {
-            font-size: 1.1em;
-            color: #e74c3c;
-            font-weight: bold;
-            margin: 5px 10px 0 10px;
-        }
-
-        .sidebar {
-            flex: 1;
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-        .sidebar h2 {
-            color: #2c3e50;
-            margin-bottom: 20px;
-            font-size: 1.5em;
-            border-bottom: 2px solid #ecf0f1;
-            padding-bottom: 10px;
-        }
-
-        .categories ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .categories li {
-            margin-bottom: 10px;
-        }
-        .categories a {
-            display: block;
-            padding: 10px 15px;
-            background-color: #ecf0f1;
-            color: #34495e;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.2s ease, color 0.2s ease;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .categories a:hover {
-            background-color: #3498db;
-            color: #ffffff;
-        }
-        .categories .material-icons {
-            font-size: 1.2em;
-        }
-
-        .help-section {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 2px solid #ecf0f1;
-            text-align: center;
-        }
-        .help-button {
-            background-color: #2ecc71;
-            color: #ffffff;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 5px;
-            font-size: 1.1em;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .help-button:hover {
-            background-color: #27ae60;
-        }
-        .help-button .material-icons {
-            font-size: 1.3em;
-        }
-
-        footer {
-            background-color: #2c3e50;
-            color: #ecf0f1;
-            text-align: center;
-            padding: 20px;
-            margin-top: 30px;
-            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
-        }
-        footer p {
-            margin: 0;
-            font-size: 0.9em;
-        }
-
-        @media (max-width: 768px) {
-            .main-container {
-                flex-direction: column;
-                padding: 15px;
-            }
-            .product-section, .sidebar {
-                flex: none;
-                width: 100%;
-                margin-bottom: 20px;
-            }
-            header h1 {
-                font-size: 2em;
-            }
-            .product-grid {
-                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            }
-        </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIDEN</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: url('bg.png') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Noto Sans KR', sans-serif;
+      min-height: 200vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: linear-gradient(to bottom, #ffeb3b, #fbc02d);
+      z-index: -1;
+    }
+    body::after {
+      content: '';
+      position: absolute;
+      top: 100vh;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: #000000;
+      z-index: -1;
+    }
+    .top-section {
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    .rectangle-container {
+      display: flex;
+      flex-direction: row;
+      width: 80%;
+      max-width: 800px;
+      gap: 0;
+    }
+    .rectangle {
+      padding: 2rem;
+      font-weight: 700;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .yellow-rect {
+      background-color: #ffeb3b;
+      color: #000000;
+      font-size: 2rem;
+      text-align: center;
+    }
+    .black-rect {
+      background-color: #000000;
+      color: #ffffff;
+      font-size: 1.2rem;
+      text-align: left;
+      align-items: flex-start;
+    }
+    .button {
+      margin-top: 1rem;
+      margin-left: 0.2rem;
+      padding: 0.5rem 1rem;
+      background: none;
+      border: 2px solid #ffffff;
+      border-radius: 20px;
+      color: #ffffff;
+      font-size: 0.9rem;
+      font-family: 'Noto Sans KR', sans-serif;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      align-self: flex-start;
+    }
+    .button:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    .material-icons {
+      font-size: 1rem;
+    }
+    .bottom-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    .bottom-content {
+      width: 80%;
+      max-width: 1000px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .intro-rect {
+      background-color: #ffeb3b;
+      color: #000000;
+      padding: 1rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .bottom-text {
+      color: #ffffff;
+      text-align: left;
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Aiden Studio</h1>
-    </header>
-
-    <div class="main-container">
-        <section class="product-section">
-            <h2>인기 상품</h2>
-            <div class="product-grid">
-                <div class="product-card">
-                    <img src="https://via.placeholder.com/250x180/ADD8E6/FFFFFF?text=Product+1" alt="상품 이미지 1">
-                    <h3>최신 스마트폰</h3>
-                    <p>1,200,000 원</p>
-                </div>
-                <div class="product-card">
-                    <img src="https://via.placeholder.com/250x180/90EE90/FFFFFF?text=Product+2" alt="상품 이미지 2">
-                    <h3>무선 이어폰</h3>
-                    <p>150,000 원</p>
-                </div>
-                <div class="product-card">
-                    <img src="https://via.placeholder.com/250x180/FFB6C1/FFFFFF?text=Product+3" alt="상품 이미지 3">
-                    <h3>게이밍 키보드</h3>
-                    <p>95,000 원</p>
-                </div>
-                <div class="product-card">
-                    <img src="https://via.placeholder.com/250x180/DDA0DD/FFFFFF?text=Product+4" alt="상품 이미지 4">
-                    <h3>스마트 워치</h3>
-                    <p>320,000 원</p>
-                </div>
-                <div class="product-card">
-                    <img src="https://via.placeholder.com/250x180/87CEEB/FFFFFF?text=Product+5" alt="상품 이미지 5">
-                    <h3>고성능 노트북</h3>
-                    <p>2,500,000 원</p>
-                </div>
-                <div class="product-card">
-                    <img src="https://via.placeholder.com/250x180/F0E68C/FFFFFF?text=Product+6" alt="상품 이미지 6">
-                    <h3>블루투스 스피커</h3>
-                    <p>80,000 원</p>
-                </div>
-            </div>
-        </section>
-
-        <aside class="sidebar">
-            <div class="categories">
-                <h2><i class="material-icons">category</i> 카테고리</h2>
-                <ul>
-                    <li><a href="#"><i class="material-icons">phone_android</i> 디지털 기기</a></li>
-                    <li><a href="#"><i class="material-icons">devices_other</i> 주변 기기</a></li>
-                    <li><a href="#"><i class="material-icons">chair</i> 가구 / 인테리어</a></li>
-                    <li><a href="#"><i class="material-icons">book</i> 도서 / 문구</a></li>
-                    <li><a href="#"><i class="material-icons">sports_soccer</i> 스포츠 / 레저</a></li>
-                    <li><a href="#"><i class="material-icons">more_horiz</i> 기타</a></li>
-                </ul>
-            </div>
-
-            <div class="help-section">
-                <h2><i class="material-icons">help_outline</i> 도움이 필요하신가요?</h2>
-                <button class="help-button">
-                    <i class="material-icons">support_agent</i> 문의하기
-                </button>
-            </div>
-        </aside>
+  <div class="top-section">
+    <div class="rectangle-container">
+      <div class="rectangle yellow-rect">
+        Hello! I'm AIDEN
+      </div>
+      <div class="rectangle black-rect">
+        여기서 다양한 상품을 구매할 수 있어요.
+        <button class="button">
+          <span class="material-icons">arrow_forward</span>
+          바로가기
+        </button>
+      </div>
     </div>
-
-    <footer>
-        <p>&copy; 2024 Aiden Studio. All rights reserved.</p>
-    </footer>
+  </div>
+  <div class="bottom-section">
+    <div class="bottom-content">
+      <div class="intro-rect">
+        <span class="material-icons">info</span>
+        소개
+      </div>
+      <div class="bottom-text">
+        안녕하세요? 풀스택 개발자 AIDEN 입니다.<br>
+        다양한 언어를 다룰수 있고 편집 , 디자인등의 일도 잘 처리할수 있습니다.
+      </div>
+    </div>
+  </div>
 </body>
 </html>
