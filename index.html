@@ -1,163 +1,164 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AIDEN</title>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      background: url('bg.png') no-repeat center center fixed;
-      background-size: cover;
-      font-family: 'Noto Sans KR', sans-serif;
-      min-height: 200vh;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-    body::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      background: linear-gradient(to bottom, #ffeb3b, #fbc02d);
-      z-index: -1;
-    }
-    body::after {
-      content: '';
-      position: absolute;
-      top: 100vh;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      background: #000000;
-      z-index: -1;
-    }
-    .top-section {
-      display: flex;
-      justify-content: flex-end;
-      align-items: flex-end;
-      min-height: 100vh;
-      padding: 2rem;
-    }
-    .rectangle-container {
-      display: flex;
-      flex-direction: row;
-      width: 80%;
-      max-width: 800px;
-      gap: 0;
-    }
-    .rectangle {
-      padding: 2rem;
-      font-weight: 700;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .yellow-rect {
-      background-color: #ffeb3b;
-      color: #000000;
-      font-size: 2rem;
-      text-align: center;
-    }
-    .black-rect {
-      background-color: #000000;
-      color: #ffffff;
-      font-size: 1.2rem;
-      text-align: left;
-      align-items: flex-start;
-    }
-    .button {
-      margin-top: 1rem;
-      margin-left: 0.2rem;
-      padding: 0.5rem 1rem;
-      background: none;
-      border: 2px solid #ffffff;
-      border-radius: 20px;
-      color: #ffffff;
-      font-size: 0.9rem;
-      font-family: 'Noto Sans KR', sans-serif;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-      align-self: flex-start;
-    }
-    .button:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-    .material-icons {
-      font-size: 1rem;
-    }
-    .bottom-section {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 2rem;
-    }
-    .bottom-content {
-      width: 80%;
-      max-width: 1000px;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 1rem;
-    }
-    .intro-rect {
-      background-color: #ffeb3b;
-      color: #000000;
-      padding: 1rem;
-      font-size: 1.5rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .bottom-text {
-      color: #ffffff;
-      text-align: left;
-      font-size: 2.5rem;
-      font-weight: 700;
-      line-height: 1.5;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIDEN</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: url('bg.png') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Noto Sans KR', sans-serif;
+      min-height: 200vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: url('bg.png') no-repeat center center fixed; 
+      background-size: cover; 
+      z-index: -1;
+    }
+    body::after {
+      content: '';
+      position: absolute;
+      top: 100vh;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: #000000;
+      z-index: -1;
+    }
+    .top-section {
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    .rectangle-container {
+      display: flex;
+      flex-direction: row;
+      width: 80%;
+      max-width: 800px;
+      gap: 0;
+    }
+    .rectangle {
+      padding: 2rem;
+      font-weight: 700;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .yellow-rect {
+      background-color: #ffeb3b;
+      color: #000000;
+      font-size: 2rem;
+      text-align: center;
+    }
+    .black-rect {
+      background-color: #000000;
+      color: #ffffff;
+      font-size: 1.2rem;
+      text-align: left;
+      align-items: flex-start;
+    }
+    .button {
+      margin-top: 1rem;
+      margin-left: 0.2rem;
+      padding: 0.5rem 1rem;
+      background: none;
+      border: 2px solid #ffffff;
+      border-radius: 20px;
+      color: #ffffff;
+      font-size: 0.9rem;
+      font-family: 'Noto Sans KR', sans-serif;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      align-self: flex-start;
+    }
+    .button:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    .material-icons {
+      font-size: 1rem;
+    }
+    .bottom-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    .bottom-content {
+      width: 80%;
+      max-width: 1000px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .intro-rect {
+      background-color: #ffeb3b;
+      color: #000000;
+      padding: 1rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .bottom-text {
+      color: #ffffff;
+      text-align: left;
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+  </style>
 </head>
 <body>
-  <div class="top-section">
-    <div class="rectangle-container">
-      <div class="rectangle yellow-rect">
-        Hello! I'm AIDEN
-      </div>
-      <div class="rectangle black-rect">
-        여기서 다양한 상품을 구매할 수 있어요.
-        <button class="button">
-          <span class="material-icons">arrow_forward</span>
-          바로가기
-        </button>
-      </div>
-    </div>
-  </div>
-  <div class="bottom-section">
-    <div class="bottom-content">
-      <div class="intro-rect">
-        <span class="material-icons">info</span>
-        소개
-      </div>
-      <div class="bottom-text">
-        안녕하세요? 풀스택 개발자 AIDEN 입니다.<br>
-        다양한 언어를 다룰수 있고 편집 , 디자인등의 일도 잘 처리할수 있습니다.
-      </div>
-    </div>
-  </div>
+  <div class="top-section">
+    <div class="rectangle-container">
+      <div class="rectangle yellow-rect">
+        Hello! I'm AIDEN
+      </div>
+      <div class="rectangle black-rect">
+        여기서 다양한 상품을 구매할 수 있어요.
+        <button class="button">
+          <span class="material-icons">arrow_forward</span>
+          바로가기
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-section">
+    <div class="bottom-content">
+      <div class="intro-rect">
+        <span class="material-icons">info</span>
+        소개
+      </div>
+      <div class="bottom-text">
+        안녕하세요? 풀스택 개발자 AIDEN 입니다.<br>
+        다양한 언어를 다룰수 있고 편집 , 디자인등의 일도 잘 처리할수 있습니다.
+      </div>
+    </div>
+  </div>
 </body>
 </html>
