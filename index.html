@@ -60,11 +60,31 @@
       text-align: center;
     }
     .black-rect {
-      background-color: #000000;
+      background-color: rgba(0, 0, 0, 0.8);
       color: #ffffff;
       font-size: 1.2rem;
       text-align: left;
       align-items: flex-start;
+      background-image: url('aiden.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
+    }
+    .black-rect::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 1;
+    }
+    .black-rect > * {
+      position: relative;
+      z-index: 2;
+      color: #ffffff;
     }
     .button {
       margin-top: 1rem;
@@ -136,7 +156,7 @@
     .material-icons {
       font-size: 0.8rem;
     }
-    
+         
     .bottom-section {
       display: flex;
       justify-content: center;
@@ -161,6 +181,36 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
+    }
+    .intro-title {
+      transition: transform 0.5s ease, opacity 0.5s ease;
+    }
+    .intro-title.fade-out {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    .intro-title.fade-in {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .intro-title.fade-in-from-left {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    .intro-icon {
+      transition: transform 0.5s ease, opacity 0.5s ease;
+    }
+    .intro-icon.fade-out {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    .intro-icon.fade-in {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .intro-icon.fade-in-from-left {
+      opacity: 0;
+      transform: translateX(-50px);
     }
     .bottom-text {
       color: #ffffff;
@@ -223,17 +273,49 @@
       object-fit: cover;
       border-radius: 5px;
     }
+    
+    .yellow-text {
+      transition: transform 0.5s ease, opacity 0.5s ease;
+    }
+    .yellow-text.fade-out {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    .yellow-text.fade-in {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .yellow-text.fade-in-from-left {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    
+    .black-text {
+      transition: transform 0.5s ease, opacity 0.5s ease;
+    }
+    .black-text.fade-out {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    .black-text.fade-in {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .black-text.fade-in-from-left {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
   </style>
 </head>
 <body>
   <div class="top-section">
     <div class="rectangle-container">
       <div class="rectangle yellow-rect">
-        Hello! I'm AIDEN
+        <span class="yellow-text fade-in">Hello! I'm AIDEN</span>
       </div>
       <div class="rectangle black-rect">
-        여기서 다양한 상품을 구매할 수 있어요.
-        <button class="button">
+        <span class="black-text fade-in">여기서 다양한 상품을 구매할 수 있어요.</span>
+        <button class="button" onclick="window.location.href='lock.html'">
           <span class="material-icons">arrow_forward</span>
           바로가기
         </button>
@@ -243,8 +325,8 @@
   <div class="bottom-section">
     <div class="bottom-content">
       <div class="intro-rect">
-        <span class="material-icons">info</span>
-        소개
+        <span class="material-icons intro-icon">info</span>
+        <span class="intro-title">소개</span>
       </div>
       <div class="section-content">
         <div class="bottom-text content-text fade-in">
@@ -260,6 +342,8 @@
   </div>
   <script>
     let currentSection = 0;
+    let currentTopSection = 0;
+    
     const sections = [
       { 
         icon: 'info', 
@@ -274,7 +358,7 @@
       { 
         icon: 'contact_mail', 
         title: '연락처',
-        content: 'Discord: _a2den<br>GitHub: github.com/a2den1<br>Portfolio: a2den1.github.io'
+        content: 'Discord: _a2den.<br>GitHub: github.com/_a2den1'
       },
       { 
         icon: 'code', 
@@ -283,29 +367,100 @@
       }
     ];
     
+    const topSections = [
+      {
+        yellow: 'Hello! I\'m AIDEN',
+        black: '여기서 다양한 상품을 구매할 수 있어요.'
+      },
+      {
+        yellow: 'Hello! I\'m AIDEN',
+        black: '최고의 개발 서비스를 제공합니다.'
+      },
+      {
+        yellow: 'Hello! I\'m AIDEN',
+        black: '다양한 프로젝트 경험을 보유하고 있습니다.'
+      },
+      {
+        yellow: 'Hello! I\'m AIDEN',
+        black: '고품질의 솔루션을 제공해드립니다.'
+      }
+    ];
+         
     function toggleSection() {
-      const introIcon = document.querySelector('.intro-rect .material-icons');
-      const introTitle = document.querySelector('.intro-rect');
+      const introIcon = document.querySelector('.intro-icon');
+      const introTitle = document.querySelector('.intro-title');
       const contentText = document.querySelector('.content-text');
       
+
       contentText.classList.remove('fade-in');
       contentText.classList.add('fade-out');
       
+      introTitle.classList.remove('fade-in');
+      introTitle.classList.add('fade-out');
+      
+      introIcon.classList.remove('fade-in');
+      introIcon.classList.add('fade-out');
+      
+
+      const yellowText = document.querySelector('.yellow-text');
+      const blackText = document.querySelector('.black-text');
+      
+      yellowText.classList.remove('fade-in');
+      yellowText.classList.add('fade-out');
+      
+      blackText.classList.remove('fade-in');
+      blackText.classList.add('fade-out');
+      
       setTimeout(() => {
         currentSection = (currentSection + 1) % sections.length;
+        currentTopSection = (currentTopSection + 1) % topSections.length;
+        
         const newSection = sections[currentSection];
+        const newTopSection = topSections[currentTopSection];
         
+
         introIcon.textContent = newSection.icon;
-        introTitle.innerHTML = `<span class="material-icons">${newSection.icon}</span>${newSection.title}`;
-        
+        introTitle.textContent = newSection.title;
         contentText.innerHTML = newSection.content;
         
+
+        yellowText.textContent = newTopSection.yellow;
+        blackText.textContent = newTopSection.black;
+        
+
         contentText.classList.remove('fade-out');
         contentText.classList.add('fade-in-from-left');
         
+        introTitle.classList.remove('fade-out');
+        introTitle.classList.add('fade-in-from-left');
+        
+        introIcon.classList.remove('fade-out');
+        introIcon.classList.add('fade-in-from-left');
+        
+
+        yellowText.classList.remove('fade-out');
+        yellowText.classList.add('fade-in-from-left');
+        
+        blackText.classList.remove('fade-out');
+        blackText.classList.add('fade-in-from-left');
+        
         setTimeout(() => {
+    
           contentText.classList.remove('fade-in-from-left');
           contentText.classList.add('fade-in');
+          
+          introTitle.classList.remove('fade-in-from-left');
+          introTitle.classList.add('fade-in');
+          
+          introIcon.classList.remove('fade-in-from-left');
+          introIcon.classList.add('fade-in');
+          
+    
+          yellowText.classList.remove('fade-in-from-left');
+          yellowText.classList.add('fade-in');
+          
+          blackText.classList.remove('fade-in-from-left');
+          blackText.classList.add('fade-in');
         }, 50);
       }, 250);
     }
