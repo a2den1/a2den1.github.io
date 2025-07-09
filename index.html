@@ -11,9 +11,10 @@
             font-family: 'Roboto', sans-serif;
         }
         img.logo {
-            height: 70vh;
+            height: 50vh;
             width: auto;
-            max-width: none;
+            max-width: 90%;
+            max-height: 500px;
         }
         .bg-image {
             position: absolute;
@@ -25,9 +26,27 @@
             mask-image: linear-gradient(to left, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
             -webkit-mask-image: linear-gradient(to left, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
         }
+        @media (min-width: 640px) {
+            img.logo {
+                height: 60vh;
+                max-height: 600px;
+            }
+            .bg-image {
+                width: 40%;
+            }
+        }
+        @media (min-width: 1024px) {
+            img.logo {
+                height: 70vh;
+                max-height: 700px;
+            }
+            .bg-image {
+                width: 30%;
+            }
+        }
     </style>
 </head>
-<body class="bg-gray-900 flex items-center justify-start min-h-screen pl-4 relative">
+<body class="bg-gray-900 flex items-center justify-start min-h-screen pl-4 sm:pl-6 lg:pl-8 relative">
     <img src="logo.png" alt="Logo" class="logo">
     <img src="bg.png" alt="Background" class="bg-image">
 </body>
