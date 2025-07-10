@@ -33,6 +33,11 @@
         .logo-container.shrink {
             top: 20px;
             transform: translate(-50%, 0);
+            background-color: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            border-radius: 10px;
         }
         .logo {
             width: 300px;
@@ -178,6 +183,70 @@
         }
         .now-section .card a:hover {
             background-color: #333333;
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            .logo-container {
+                flex-direction: column;
+                padding: 10px;
+            }
+            .logo-container.shrink {
+                padding: 10px;
+                width: 90%;
+                box-sizing: border-box;
+            }
+            .logo {
+                width: 200px;
+            }
+            .logo.shrink {
+                width: 80px;
+            }
+            .menu-left, .menu-right {
+                margin: 0;
+                width: 100%;
+                text-align: center;
+            }
+            .menu-left a, .menu-right a {
+                margin: 5px 0;
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+            .scroll-arrow {
+                font-size: 30px;
+                bottom: 20px;
+            }
+            .about-section h1, .now-section h1 {
+                font-size: 36px;
+                margin-bottom: 15px;
+            }
+            .about-section p {
+                font-size: 16px;
+                max-width: 90%;
+                padding: 0 10px;
+            }
+            .now-section .card {
+                max-width: 90%;
+                padding: 15px;
+                margin: 15px 0;
+            }
+            .now-section .card h2 {
+                font-size: 20px;
+                margin-bottom: 10px;
+            }
+            .now-section .card a {
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+            .about-section, .now-section {
+                height: auto;
+                min-height: 100vh;
+                padding: 20px 0;
+            }
+            .content {
+                height: auto;
+                min-height: 300vh;
+            }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
