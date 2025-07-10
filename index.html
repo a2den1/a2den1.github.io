@@ -32,7 +32,7 @@
         }
         .logo-container.shrink {
             top: 20px;
-            transform: transform: translate(-50%, 0);
+            transform: translate(-50%, 0);
         }
         .logo {
             width: 300px;
@@ -65,7 +65,7 @@
             background-color: #1e1e1e;
             border-radius: 5px;
             transition: background-color 0.3s;
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             font-weight: 500;
         }
         .menu-left a:hover, .menu-right a:hover {
@@ -73,36 +73,40 @@
         }
         .scroll-arrow {
             position: fixed;
-            bottom: 50px;
+            bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
             font-size: 40px;
-            color: #808080;
+            color: #ffffff;
             opacity: 1;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.3s ease;
             z-index: 5;
-            animation: bounce 2s infinite;
+            cursor: pointer;
         }
-        .scroll-arrow.hide {
+        .scroll-arrow.hidden {
             opacity: 0;
-            visibility: hidden;
+            pointer-events: none;
         }
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% {
-                transform: translateX(-50%) translateY(0);
+                transform: translate(-50%, 0);
             }
             40% {
-                transform: translateX(-50%) translateY(-10px);
+                transform: translate(-50%, -10px);
             }
             60% {
-                transform: translateX(-50%) translateY(-5px);
+                transform: translate(-50%, -5px);
             }
+        }
+        .scroll-arrow span {
+            animation: bounce 2s infinite;
+            display: inline-block;
         }
         .content {
             height: 200vh;
         }
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
@@ -115,7 +119,9 @@
                 <a href="https://aidenstudio.neocities.org/" target="_blank">Loun Host</a>
             </div>
         </div>
-        <div class="scroll-arrow">↓</div>
+        <div class="scroll-arrow" id="scrollArrow">
+            <span>↓</span>
+        </div>
     </div>
     <div class="content"></div>
     <script>
@@ -131,14 +137,21 @@
                 logo.classList.add('shrink');
                 menuLeft.classList.add('show');
                 menuRight.classList.add('show');
-                scrollArrow.classList.add('hide');
+                scrollArrow.classList.add('hidden');
             } else {
                 logoContainer.classList.remove('shrink');
                 logo.classList.remove('shrink');
                 menuLeft.classList.remove('show');
                 menuRight.classList.remove('show');
-                scrollArrow.classList.remove('hide');
+                scrollArrow.classList.remove('hidden');
             }
+        });
+
+        scrollArrow.addEventListener('click', () => {
+            window.scrollTo({
+                top: window.innerHeight,
+                behavior: 'smooth'
+            });
         });
     </script>
 </body>
