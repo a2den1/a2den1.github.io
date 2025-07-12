@@ -48,12 +48,12 @@
             justify-content: center;
         }
         .logo {
-            width: 300px;
-            transition: all 0.5s ease;
+            width: 350px;
+            transition: width 0.5s ease, height 0.5s ease;
         }
         .logo.shrink {
-            width: 80px;
-            height: 40px;
+            width: 100px;
+            height: 50px;
             object-fit: contain;
         }
         .menu-left, .menu-right {
@@ -84,9 +84,9 @@
             font-weight: 500;
         }
         .logo-container.shrink .menu-left a, .logo-container.shrink .menu-right a {
-            padding: 4px 12px;
+            padding: 3px 10px;
             margin: 5px 0;
-            font-size: 12px;
+            font-size: 11px;
         }
         .menu-left a:hover, .menu-right a:hover {
             background-color: #333333;
@@ -212,11 +212,12 @@
                 box-sizing: border-box;
             }
             .logo {
-                width: 200px;
+                width: 250px;
+                transition: width 0.5s ease, height 0.5s ease;
             }
             .logo.shrink {
-                width: 60px;
-                height: 30px;
+                width: 80px;
+                height: 40px;
                 object-fit: contain;
             }
             .menu-left, .menu-right {
@@ -230,7 +231,7 @@
                 font-size: 14px;
             }
             .logo-container.shrink .menu-left a, .logo-container.shrink .menu-right a {
-                padding: 3px 10px;
+                padding: 2px 8px;
                 font-size: 10px;
                 margin: 3px 0;
             }
