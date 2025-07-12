@@ -12,6 +12,10 @@
             color: #ffffff;
             font-family: Arial, sans-serif;
             overflow-x: hidden;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
         }
         .container {
             height: 100vh;
@@ -36,7 +40,7 @@
             background-color: rgba(18, 18, 18, 0.8);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            padding: 10px 20px;
+            padding: 5px 20px;
             border-radius: 10px;
         }
         .logo {
@@ -108,7 +112,7 @@
             display: inline-block;
         }
         .content {
-            height: 300vh;
+            height: auto;
             position: relative;
         }
         .about-section {
@@ -136,7 +140,7 @@
             z-index: -1;
         }
         .now-section {
-            height: 100vh;
+            height: auto;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -145,6 +149,7 @@
             background-color: #121212;
             position: relative;
             z-index: 1;
+            padding: 40px 0;
         }
         .about-section h1, .now-section h1 {
             font-family: 'Montserrat', sans-serif;
@@ -184,15 +189,13 @@
         .now-section .card a:hover {
             background-color: #333333;
         }
-
-        /* Mobile adjustments */
         @media (max-width: 768px) {
             .logo-container {
                 flex-direction: column;
                 padding: 10px;
             }
             .logo-container.shrink {
-                padding: 10px;
+                padding: 5px 20px;
                 width: 90%;
                 box-sizing: border-box;
             }
@@ -240,12 +243,10 @@
             }
             .about-section, .now-section {
                 height: auto;
-                min-height: 100vh;
                 padding: 20px 0;
             }
             .content {
                 height: auto;
-                min-height: 300vh;
             }
         }
     </style>
@@ -308,6 +309,22 @@
                 behavior: 'smooth'
             });
         });
+
+        document.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+        });
+
+        const detectDevTools = () => {
+            const threshold = 160;
+            const widthThreshold = window.outerWidth - window.innerWidth > threshold;
+            const heightThreshold = window.outerHeight - window.innerHeight > threshold;
+            if (widthThreshold || heightThreshold) {
+                window.close();
+            }
+        };
+
+        window.addEventListener('resize', detectDevTools);
+        setInterval(detectDevTools, 1000);
     </script>
 </body>
 </html>
